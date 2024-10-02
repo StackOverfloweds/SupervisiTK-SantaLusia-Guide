@@ -8,6 +8,10 @@ module.exports = {
   ],
   theme: {
   	extend: {
+		fontFamily:{
+			poppins: "var(--font-poppins-regular)",
+			bebasNeue: "var(--font-bebasNeue-regular)"
+		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -19,14 +23,14 @@ module.exports = {
   				DEFAULT: 'hsl(var(--popover))',
   				foreground: 'hsl(var(--popover-foreground))'
   			},
-  			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
-  			},
+  			primary:  'var(--primary)',
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))',
   				foreground: 'hsl(var(--secondary-foreground))'
   			},
+			kuning: {
+				DEFAULT: 'var(--kuning)'
+			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
   				foreground: 'hsl(var(--muted-foreground))'
