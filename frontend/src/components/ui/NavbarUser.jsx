@@ -3,7 +3,6 @@ import logo from "@/img/logo.png"
 import Link from "next/link"
 export default function NavbarUser() {
     return (
-        <div className="sticky">
             <nav className="w-full h-auto py-2  flex">
                 <div className="flex items-center">
                     <Image src={logo} width={100}/>
@@ -19,6 +18,5 @@ export default function NavbarUser() {
                     <li><Link href="/Login" className=" hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white px-2 py-2 uppercase">Login</Link></li>
                 </ul>
             </nav>
-        </div>
     )
 }
