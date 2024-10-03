@@ -10,6 +10,7 @@ module.exports = {
   	extend: {
 		fontFamily:{
 			poppins: "var(--font-poppins-regular)",
+			poppinsBold: "var(--font-poppins-bold)",
 			bebasNeue: "var(--font-bebasNeue-regular)"
 		},
   		colors: {

@@ -17,6 +17,11 @@ const poppins = localFont({
   variable: "--font-poppins-regular",
   weight:"100 900"
 })
+const poppinsBold = localFont({
+  src: "./fonts/Poppins/Poppins-Bold.ttf",
+  variable: "--font-poppins-bold",
+  weight:"100 900"
+})
 
 const bebasNeue = localFont({
   src: "./fonts/Bebas_Neue/BebasNeue-Regular.ttf",
@@ -33,7 +38,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${poppins.variable} ${bebasNeue.variable} after:antialiased`}
+        className={`${poppins.variable} ${bebasNeue.variable} ${poppinsBold.variable} after:antialiased`}
       >
         {children}
       </body>
