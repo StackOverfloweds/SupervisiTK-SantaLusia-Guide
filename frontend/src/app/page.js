@@ -3,6 +3,8 @@ import Fotosantalusia from "@/img/FOTOSANTALUSIA.jpg"
 import iconBuku from "@/img/iconBuku.jpg"
 import santaLusia from "@/img/santaLusia.jpg"
 import GuruSantaLusia from "@/img/Gurusantalusia.jpg"
+import Pembelajaran1 from "@/img/pembelajaran1.jpg"
+import Pembelajaran2 from "@/img/pembeljaran2.jpg"
 import NavbarUser from "@/components/ui/NavbarUser"
 import { FaRegGem } from "react-icons/fa";
 import { GoTrophy } from "react-icons/go";
@@ -18,7 +20,7 @@ export default function Home() {
       <section className="w-full h-[600px] py-5  px-56">
         <div className="flex items-center gap-24 relative">
           <div className="relative">
-            <Image Image src={Fotosantalusia} width={450} className="relative z-20"></Image>
+            <Image src={Fotosantalusia} width={450} className="relative z-20"></Image>
             <div className="absolute w-[450px] h-[450px] bg-gradient-to-tr to-pink-500 from-[#feca02] top-14 left-14 z-10"></div>
           </div>
           <div className="w-60">
@@ -130,6 +132,23 @@ export default function Home() {
               <h1 className="text-[#feca02] font-bebasNeue text-2xl my-2">GURU GURU YANG KOMPETEN</h1>
               <p className="text-gray-600 font-poppins text-sm italic ">Guru-guru di Sekolah Santa Lusia adalah tenaga pengajar yang kompeten dan berpengalaman, selalu siap membimbing dan menginspirasi setiap anak. Dengan pendekatan yang penuh kasih dan metode pengajaran yang inovatif, mereka memastikan setiap siswa mendapatkan perhatian dan pendidikan terbaik.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CCUP section */}
+      <section>
+        <div className="grid grid-cols-5 px-56 p-12">
+          <div className="col-span-3 relative">
+            <Image src={Pembelajaran2} className="absolute w-[350px] h-[500px] object-cover z-10"></Image>
+            <div className="relative w-[400px] h-[450px] bg-gradient-to-tr to-pink-500 from-[#feca02] top-14 left-14 z-20">
+              <Image src={Pembelajaran1} className="absolute  w-[350px] h-[450px] object-cover top-6 right-6"></Image>
+            </div>
+          </div>
+          <div className="font-poppins w-full col-span-2">
+            <h1 className="mb-2 font-bebasNeue text-5xl text-blue-500 ">“CERDAS, CERIA, UNGGUL DAN PEDULI SESAMA (CCUP)"</h1>
+            <p className="mb-1 text-gray-600 text-md">"Filosofi CCUP, yaitu Cerdas, Ceria, Unggul, dan Peduli Sesama, menjadi landasan utama bagi setiap siswa di Sekolah Santa Lusia, mengilhami mereka untuk berkembang secara holistik dan menjadi individu yang berkontribusi dalam masyarakat."</p>
+            <p className=" text-gray-600 text-md">"Dengan komitmen terhadap nilai-nilai CCUP, kami memastikan bahwa setiap siswa tidak hanya memiliki kecerdasan akademis, tetapi juga kepribadian yang ceria, prestasi yang unggul, serta rasa peduli yang mendalam terhadap sesama dan lingkungan."</p>
           </div>
         </div>
       </section>
