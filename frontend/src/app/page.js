@@ -1,13 +1,23 @@
 import Image from "next/image";
 import Fotosantalusia from "@/img/FOTOSANTALUSIA.jpg"
 import iconBuku from "@/img/iconBuku.jpg"
+import iconSalib from "@/img/iconSalib.png"
 import santaLusia from "@/img/santaLusia.jpg"
 import GuruSantaLusia from "@/img/Gurusantalusia.jpg"
 import Pembelajaran1 from "@/img/pembelajaran1.jpg"
 import Pembelajaran2 from "@/img/pembeljaran2.jpg"
+import CookingClass from "@/img/cookingclass.jpg"
+import Gambar2 from "@/img/gambbar2.jpg"
+import Gambar3 from "@/img/DokumentasiKegiatan/001.jpg"
 import NavbarUser from "@/components/ui/NavbarUser"
+import { Button } from "@/components/ui/button"
 import { FaRegGem } from "react-icons/fa";
 import { GoTrophy } from "react-icons/go";
+import { FaLocationDot } from "react-icons/fa6";
+import { IoPhonePortrait } from "react-icons/io5";
+import { MdEmail,MdModelTraining } from "react-icons/md";
+import { PiPersonSimpleThrowBold } from "react-icons/pi";
+import { GiSpellBook } from "react-icons/gi";
 
 export default function Home() {
   return (
@@ -30,26 +40,26 @@ export default function Home() {
           <div className="absolute w-[45em] h-[10em] bg-slate-500 right-0 -bottom-24 grid grid-cols-4 z-30">
             <div className="w-full h-full bg-[#38c4c1] flex items-center justify-center ">
               <div className="mx-auto">
-                <Image src={iconBuku} width={80}></Image>
+                <GiSpellBook size={80} color="white"/>
                 <p className="font-bebasNeue text-2xl font-bold text-white text-center mt-1">Belajar</p>
               </div>
             </div>
             <div className="w-full h-full bg-[#feca02] flex items-center justify-center ">
               <div className="mx-auto">
-                <Image src={iconBuku} width={80}></Image>
-                <p className="font-bebasNeue text-2xl font-bold text-white text-center mt-1">Belajar</p>
+                <Image src={iconSalib} width={80}></Image>
+                <p className="font-bebasNeue text-2xl font-bold text-white text-center mt-1">Beriman</p>
               </div>
             </div>
             <div className="w-full h-full bg-pink-500 flex items-center justify-center ">
               <div className="mx-auto">
-                <Image src={iconBuku} width={80}></Image>
-                <p className="font-bebasNeue text-2xl font-bold text-white text-center mt-1">Belajar</p>
+                <MdModelTraining  size={80} color="white"/>
+                <p className="font-bebasNeue text-2xl font-bold text-white text-center mt-1">Berlatih</p>
               </div>
             </div>
             <div className="w-full h-full bg-[#488df4] flex items-center justify-center ">
               <div className="mx-auto">
-                <Image src={iconBuku} width={80}></Image>
-                <p className="font-bebasNeue text-2xl font-bold text-white text-center mt-1">Belajar</p>
+                <PiPersonSimpleThrowBold size={80} color="white"/>
+                <p className="font-bebasNeue text-2xl font-bold text-white text-center mt-1">Bermain</p>
               </div>
             </div>
           </div>
@@ -95,10 +105,10 @@ export default function Home() {
               <Image src={GuruSantaLusia} fill={true}></Image>
             </div>
             <div className="border row-span-2 relative">
-              <Image src={GuruSantaLusia} fill={true} className="object-cover"></Image>
+              <Image src={Gambar2} fill={true} className="object-cover"></Image>
             </div>
             <div className="border row-span-2 relative">
-              <Image src={GuruSantaLusia} fill={true} className="object-cover"></Image>
+              <Image src={Gambar3} fill={true} className="object-cover"></Image>
             </div>
           </div>
         </div>
@@ -149,6 +159,105 @@ export default function Home() {
             <h1 className="mb-2 font-bebasNeue text-5xl text-blue-500 ">“CERDAS, CERIA, UNGGUL DAN PEDULI SESAMA (CCUP)"</h1>
             <p className="mb-1 text-gray-600 text-md">"Filosofi CCUP, yaitu Cerdas, Ceria, Unggul, dan Peduli Sesama, menjadi landasan utama bagi setiap siswa di Sekolah Santa Lusia, mengilhami mereka untuk berkembang secara holistik dan menjadi individu yang berkontribusi dalam masyarakat."</p>
             <p className=" text-gray-600 text-md">"Dengan komitmen terhadap nilai-nilai CCUP, kami memastikan bahwa setiap siswa tidak hanya memiliki kecerdasan akademis, tetapi juga kepribadian yang ceria, prestasi yang unggul, serta rasa peduli yang mendalam terhadap sesama dan lingkungan."</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Section tentang kami 2 */}
+      <section>
+        <div className="py-5 px-56">
+          <p className="font-bebasNeue text-gray-400 uppercase text-3xl text-center">tentang kami</p>
+          <h1 className="font-bebasNeue text-gray-600 text-5xl text-center w-[500px] mx-auto mt-2 mb-3">Pembelajaran yang diberikan guru terbaik kami</h1>
+          <div className="grid grid-cols-3 grid-rows-3 gap-10">
+            <span>
+              <h1 className="font-bebasNeue text-gray-600 text-3xl text-right ">Menyenangkan dan Menarik</h1>
+              <p className="text-right">Guru-guru kami tidak hanya ahli dalam bidang mereka, tetapi juga mampu menciptakan pengalaman pembelajaran yang menyenangkan dan menarik bagi setiap siswa.</p>
+            </span>
+            <span className="row-span-3 border relative">
+              <Image src={CookingClass} fill={true} className="object-cover object-bottom"></Image>
+            </span>
+            <span>
+              <h1 className="font-bebasNeue text-gray-600 text-3xl text-left ">Pengajaran Yang Profesional</h1>
+              <p className="text-left">Pengajaran di Sekolah Santa Lusia dilakukan secara profesional, dengan pendekatan yang berpusat pada siswa dan komitmen yang kuat untuk mencapai keunggulan dalam pendidikan.</p>
+            </span>
+            <span>
+              <h1 className="font-bebasNeue text-gray-600 text-3xl text-right ">Penuhi Dengan Cinta</h1>
+              <p className="text-right">Kami adalah kelompok guru yang sangat mencintai anak-anak dan menikmati setiap saat.</p>
+            </span>
+            <span>
+              <h1 className="font-bebasNeue text-gray-600 text-3xl text-left ">Mempersiapkan diri sebelum mengajar</h1>
+              <p className="text-left">Guru-guru TK kami adalah para profesional yang rajin dan teliti, yang selalu mempersiapkan materi pembelajaran dengan cermat sebelum masuk ke dalam kelas.</p>
+            </span>
+            <span>
+              <h1 className="font-bebasNeue text-gray-600 text-3xl text-right ">Pendidikan Spesial</h1>
+              <p className="text-right">Guru-guru kami memiliki kemampuan khusus untuk mengajar dengan penuh dedikasi dan inovasi, menciptakan pengalaman belajar yang unik dan berkesan bagi setiap siswa.</p>
+            </span>
+            <span>
+              <h1 className="font-bebasNeue text-gray-600 text-3xl text-left ">Berspiritualitas yang baik</h1>
+              <p className="text-left">Guru-guru kami tidak hanya berkomitmen pada pembelajaran akademis, tetapi juga memiliki spiritualitas yang baik, memperkuat nilai-nilai moral dan keberagaman di dalam lingkungan pendidikan.</p>
+            </span>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Pendaftaran Section */}
+      <section className="bg-[#488df4]">
+        <div className="px-56 pt-5">
+          <h1 className="font-poppinsBold text-3xl text-center text-white">Mari daftarkan anak-anak anda bersama kami</h1>
+          <div className="grid grid-cols-4 mt-5">
+            <div className="col-span-3 text-white grid grid-cols-2 border-r-2 px-2">
+              <h1 className="font-bebasNeue text-3xl text-center col-span-2">Pendaftaran</h1>
+              
+              {/* */}
+              <span className="text-md ">
+                <p className="font-poppins text-center py-2">Langsung</p>
+                <h3 className="font-poppins text-center">"Silakan datang ke <span className="font-poppinsBold">Sekolah Santa Lusia berlokasi  </span> di <span className="font-poppinsBold">Jalan Medan Batang KUIS km 14 No.123 SEI ROTAN KEC.Percut sei TUAN KABUPATEN DELI SERDANG.</span>"</h3>
+              </span>
+              <span className="text-md ">
+                <p className="font-poppins text-center py-2">Online</p>
+                <div className="flex justify-center">
+                  <Button className="bg-[#FE7EC9]" size="lg">Klik sini</Button>
+                </div>
+              </span>
+            </div>
+            <div className="col-span-1 text-white">
+              <h1 className="font-bebasNeue text-xl text-center col-span-2">Brosur</h1>
+              <div className="flex justify-center">
+                <Button className="bg-gradient-to-tr from-[#FE7EC9] to-[#38c4c1]" size="lg">Download Brosur</Button>
+              </div>
+              <h1 className="font-bebasNeue text-xl text-center col-span-2 mt-5">Syarat dan ketentuan</h1>
+              <div className="flex justify-center">
+                <Button className="bg-gradient-to-tr from-[#FE7EC9] to-[#38c4c1]" size="lg">Download S&K</Button>
+              </div>
+            </div>
+          </div>
+          <h1 className="font-poppinsBold text-center w-[700px] mx-auto text-white mt-4 pb-5">"Kami dengan senang hati menyambut kedatangan Anda untuk mengenal lebih jauh tentang lingkungan pembelajaran kami yang inspiratif."</h1>
+        </div>
+      </section>
+
+      <section>
+        <div className="grid grid-cols-3 px-56 py-28 text-center">
+          <div>
+            <FaLocationDot size={80} color="white" className="p-2 rounded-full bg-pink-500 mx-auto mb-2"/>
+            <h1 className="font-poppins">Jalan Medan Batang KUIS km 14 No.123 SEI ROTAN KEC.Percut sei TUAN KABUPATEN DELI SERDANG</h1>
+          </div>
+          <div>
+            <IoPhonePortrait size={80} color="white" className="p-2 rounded-full bg-yellow-500 mx-auto mb-2"/>
+            <h1 className="font-poppins">+62 822-4802-6244</h1>
+          </div>
+          <div>
+            <MdEmail size={80} color="white" className="p-2 rounded-full bg-[#38c4c1] mx-auto mb-2"/>
+            <h1 className="font-poppins">tksantalusia82@gmail.com</h1>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#42434b]">
+        <div className="px-56 flex items-center justify-center h-[100px]">
+          <div className="font-poppins text-sm text-white text-center">
+            <h1>@TK SANTA LUISA SEI ROTAN 2024</h1>
+            <h1>@Supportby:...</h1>
           </div>
         </div>
       </section>
