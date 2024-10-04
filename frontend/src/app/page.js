@@ -9,6 +9,10 @@ import Pembelajaran2 from "@/img/pembeljaran2.jpg"
 import CookingClass from "@/img/cookingclass.jpg"
 import Gambar2 from "@/img/gambbar2.jpg"
 import Gambar3 from "@/img/DokumentasiKegiatan/001.jpg"
+import Learn from "@/img/learning_17643541.png"
+import Partners from "@/img/partners_5371115.png"
+import creative from "@/img/creative.png"
+import teach from "@/img/teaching_769658.png"
 import NavbarUser from "@/components/ui/NavbarUser"
 import { Button } from "@/components/ui/button"
 import { FaRegGem } from "react-icons/fa";
@@ -123,22 +127,30 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-4 gap-3 row-span-5 pt-5">
             <div className="bg-white h-full p-5 text-center">
-              <div className="bg-gray-500 rounded-full h-24 w-24 mx-auto"></div>
+              <div className="bg-pink-500 rounded-full h-24 w-24 mx-auto relative">
+                <Image src={Learn} fill={true}></Image>
+              </div>
               <h1 className="text-pink-500 font-bebasNeue text-2xl my-2">fasilitas yang sangat baik</h1>
               <p className="text-gray-600 font-poppins text-sm italic ">Sekolah Santa Lusia menyediakan ruang kelas yang ceria dan aman, lengkap dengan alat bermain edukatif yang menarik untuk mendukung pembelajaran anak-anak TK. Kami juga memiliki taman bermain yang luas dan nyaman, di mana anak-anak dapat bermain dan belajar dengan gembira setiap hari.</p>
             </div>
             <div className="bg-white h-full p-5 text-center">
-              <div className="bg-gray-500 rounded-full h-24 w-24 mx-auto"></div>
+              <div className="bg-[#488df4] rounded-full h-24 w-24 mx-auto relative">
+                <Image src={Partners} fill={true}></Image>
+              </div>
               <h1 className="text-[#488df4] #488df4 font-bebasNeue text-2xl my-2">PEMBELAJARAN DAN PENUMBUHAN IMAN ANAK</h1>
               <p className="text-gray-600 font-poppins text-sm italic ">Kami menanamkan nilai-nilai iman sejak dini melalui cerita-cerita inspiratif dan kegiatan rohani yang sederhana, membimbing anak-anak untuk tumbuh dengan hati yang penuh kasih dan kebaikan. Di Sekolah Santa Lusia, pembelajaran anak TK dirancang secara menyenangkan dan interaktif, sehingga anak-anak dapat mengembangkan kreativitas dan rasa ingin tahu mereka.</p>
             </div>
             <div className="bg-white h-full p-5 text-center">
-              <div className="bg-gray-500 rounded-full h-24 w-24 mx-auto"></div>
+              <div className="bg-[#3cc4c4] rounded-full h-24 w-24 mx-auto relative">
+                <Image src={creative} fill={true}></Image>
+              </div>
               <h1 className="text-[#3cc4c4] font-bebasNeue text-2xl my-2">Pembelajaran yang kreatif</h1>
               <p className="text-gray-600 font-poppins text-sm italic ">Di Sekolah Santa Lusia, pembelajaran anak TK dirancang secara menyenangkan dan interaktif, memanfaatkan alat bermain edukatif yang kreatif. Metode pembelajaran kami mendorong anak-anak untuk bereksplorasi, berkreasi, dan mengembangkan rasa ingin tahu mereka secara alami.</p>
             </div>
             <div className="bg-white h-full p-5 text-center">
-              <div className="bg-gray-500 rounded-full h-24 w-24 mx-auto"></div>
+              <div className="bg-[#feca02] rounded-full h-24 w-24 mx-auto relative">
+                <Image src={teach} fill={true}></Image>
+              </div>
               <h1 className="text-[#feca02] font-bebasNeue text-2xl my-2">GURU GURU YANG KOMPETEN</h1>
               <p className="text-gray-600 font-poppins text-sm italic ">Guru-guru di Sekolah Santa Lusia adalah tenaga pengajar yang kompeten dan berpengalaman, selalu siap membimbing dan menginspirasi setiap anak. Dengan pendekatan yang penuh kasih dan metode pengajaran yang inovatif, mereka memastikan setiap siswa mendapatkan perhatian dan pendidikan terbaik.</p>
             </div>
@@ -236,6 +248,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Contact Section */}
       <section>
         <div className="grid grid-cols-3 px-56 py-28 text-center">
           <div>
@@ -253,6 +266,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Credits section */}
       <section className="bg-[#42434b]">
         <div className="px-56 flex items-center justify-center h-[100px]">
           <div className="font-poppins text-sm text-white text-center">
