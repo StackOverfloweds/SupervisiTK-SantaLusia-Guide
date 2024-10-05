@@ -54,6 +54,10 @@ const Carousel = React.forwardRef((
     api?.scrollNext()
   }, [api])
 
+  const scrollTo = React.useCallback((index) => {
+    api?.scrollTo(index)
+  },[api])
+
   const handleKeyDown = React.useCallback((event) => {
     if (event.key === "ArrowLeft") {
       event.preventDefault()
