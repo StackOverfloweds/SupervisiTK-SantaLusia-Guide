@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Logo from "@/img/iconSalib.png";
-import { Button } from "@/components/ui/button";
 import Dashboard from "./dasboard";
 import Chatgrup from "./Chatgrup";
 import Datapengajar from "./datapengajar";
@@ -93,7 +92,9 @@ export default function MenuAdmin() {
             </li>
           ))}
         </ul>
-        <div>{renderContent()}</div>
+      </div>
+      <div className='flex-1 flex justify-center items-center p-8'>
+        {renderContent()}
       </div>
     </div>
   );
