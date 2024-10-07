@@ -22,48 +22,57 @@ import { IoPhonePortrait } from "react-icons/io5";
 import { MdEmail,MdModelTraining } from "react-icons/md";
 import { PiPersonSimpleThrowBold } from "react-icons/pi";
 import { GiSpellBook } from "react-icons/gi";
+import Credits from "./About/credits";
 
 export default function Home() {
   return (
     <div className="">
-      <div className="px-56">
+      <div className="container mx-auto px-5">
         <NavbarUser/>
       </div>
 
       {/* Hero Section */}
-      <section className="w-full h-[600px] py-5  px-56">
-        <div className="flex items-center gap-24 relative">
-          <div className="relative">
-            <Image src={Fotosantalusia} width={450} className="relative z-20"></Image>
-            <div className="absolute w-[450px] h-[450px] bg-gradient-to-tr to-pink-500 from-[#feca02] top-14 left-14 z-10"></div>
+      <section className="w-full h-[500px] md:h-[600px] my-5  container mx-auto px-5">
+        <div className="grid md:flex items-center  md:gap-24 relative w-full md:max-w-5xl  mx-auto">
+          <div className="relative border">
+            <Image src={Fotosantalusia} width={500} className="aspect-video md:aspect-square w-full md:w-[500px] relative z-20 object-cover"></Image>
+            <div className="absolute w- h-full md:w-[450px] md:h-[450px] top-0 md:top-20 left-0 md:left-20 z-10 bg-gradient-to-tr to-pink-500 from-[#feca02] "></div>
           </div>
-          <div className="w-60">
-            <h1 className="uppercase font-bebasNeue text-[70px] text-pretty  tracking-normal leading-none text-blue-500">tk santa lusia sei rotan</h1>
-            <p className="font-poppins font-bold">Kami belajar dan bermain</p>
+          <div className="w-full md:w-60 text-center md:text-left my-14 md:my-0">
+            <h1 className="uppercase font-bebasNeue text-3xl md:text-[70px] text-center md:text-left text-pretty  tracking-normal leading-none text-blue-500">tk santa lusia sei rotan</h1>
+            <p className="font-poppins text-md md:text-lg">Kami belajar dan bermain</p>
           </div>
-          <div className="absolute w-[45em] h-[10em] bg-slate-500 right-0 -bottom-24 grid grid-cols-4 z-30">
-            <div className="w-full h-full bg-[#38c4c1] flex items-center justify-center ">
-              <div className="mx-auto">
-                <GiSpellBook size={80} color="white"/>
-                <p className="font-bebasNeue text-2xl font-bold text-white text-center mt-1">Belajar</p>
+          <div className="md:absolute w-full max-w-[25em] md:max-w-[45em] h-full max-h-[1.5em] md:max-h-[10em]   right-0 -bottom-24 grid grid-cols-4 z-30 bg-slate-500 rounded-xl md:rounded-none mx-auto">
+            <div className="p-2 w-full h-full  bg-[#38c4c1] flex  items-center justify-center ">
+              <div className="mx-auto  my-auto md:h-full md:w-full">
+                <div className="relative   w-[30px] md:w-[100px] mx-auto">
+                  <GiSpellBook size="fill" color="white" className=""/>
+                </div>
+                <p className="font-bebasNeue text-lg md:text-2xl font-bold text-white text-center md:mt-1 ">Belajar</p>
               </div>
             </div>
-            <div className="w-full h-full bg-[#feca02] flex items-center justify-center ">
+            <div className="p-2 w-full h-full bg-[#feca02] flex items-center justify-center ">
               <div className="mx-auto">
-                <Image src={iconSalib} width={80}></Image>
-                <p className="font-bebasNeue text-2xl font-bold text-white text-center mt-1">Beriman</p>
+                <div className="relative w-[30px] md:w-[100px] mx-auto">
+                  <Image src={iconSalib} width={50}  alt="gambar salib" className="w-full "></Image>
+                </div>
+                <p className="font-bebasNeue text-lg md:text-2xl font-bold text-white text-center md:mt-1">Beriman</p>
               </div>
             </div>
-            <div className="w-full h-full bg-pink-500 flex items-center justify-center ">
+            <div className="p-2 w-full h-full bg-pink-500 flex items-center justify-center ">
               <div className="mx-auto">
-                <MdModelTraining  size={80} color="white"/>
-                <p className="font-bebasNeue text-2xl font-bold text-white text-center mt-1">Berlatih</p>
+                <div className="relative w-[30px] md:w-[100px] mx-auto">
+                  <MdModelTraining  size="fill" color="white"/>
+                </div>
+                <p className="font-bebasNeue text-lg md:text-2xl font-bold text-white text-center md:mt-1">Berlatih</p>
               </div>
             </div>
-            <div className="w-full h-full bg-[#488df4] flex items-center justify-center ">
+            <div className="p-2 w-full h-full bg-[#488df4] flex items-center justify-center ">
               <div className="mx-auto">
-                <PiPersonSimpleThrowBold size={80} color="white"/>
-                <p className="font-bebasNeue text-2xl font-bold text-white text-center mt-1">Bermain</p>
+                <div className="relative w-[30px] md:w-[100px] mx-auto">
+                  <PiPersonSimpleThrowBold size="fill" color="white"/>
+                </div>
+                <p className="font-bebasNeue text-lg md:text-2xl font-bold text-white text-center md:mt-1">Bermain</p>
               </div>
             </div>
           </div>
@@ -71,12 +80,12 @@ export default function Home() {
       </section>
 
       {/* Berlandaskan section */}
-      <section className="py-5 bg-[#38c4c1]">
-        <div className="px-56 ">
-          <h1 className="font-bebasNeue font-bold text-4xl text-white pb-5 tracking-wider">Berlandaskan Semangat Santa Lusia</h1>
-          <div className="flex gap-10 justify-center w-[55em] mx-auto">
-            <div className="h-[15em] w-[100em] relative">
-              <Image src={santaLusia} fill={true} className="object-cover"/>
+      <section className="py-5 bg-[#38c4c1] ">
+        <div className="container mx-auto px-5">
+          <h1 className="font-bebasNeue font-bold text-2xl md:text-4xl text-center md:text-left text-white pb-5 tracking-wider">Berlandaskan Semangat Santa Lusia</h1>
+          <div className="grid grid-rows-2 md:grid-cols-2 gap-2 md:gap-10 justify-center w-full md:w-[55em] border mx-auto">
+            <div className="  relative m-5">
+              <Image src={santaLusia} width="100em" height="15em" className="object-cover object-top"/>
             </div>
             <p className="text-md font-poppins text-pretty text-white">Sekolah Santa Lusia berkomitmen untuk menyalakan cahaya pengetahuan dan iman dalam diri setiap siswa, terinspirasi oleh semangat Santa Lusia yang penuh keberanian dan keteguhan hati. Santa Lusia, martir dari Sirakusa, adalah teladan keteguhan iman dan pengorbanan yang tak tergoyahkan. Di bawah perlindungannya, 
               kami mendidik siswa untuk memiliki iman yang kuat, pengetahuan yang luas, dan kepedulian yang mendalam terhadap sesama. Melalui berbagai kegiatan akademik dan sosial, kami mengajarkan nilai-nilai moral dan cinta kasih yang dihidupi Santa Lusia, membentuk siswa menjadi individu yang berkarakter, penuh cahaya, 
@@ -267,14 +276,7 @@ export default function Home() {
       </section>
 
       {/* Credits section */}
-      <section className="bg-[#42434b]">
-        <div className="px-56 flex items-center justify-center h-[100px]">
-          <div className="font-poppins text-sm text-white text-center">
-            <h1>@TK SANTA LUISA SEI ROTAN 2024</h1>
-            <h1>@Supportby:...</h1>
-          </div>
-        </div>
-      </section>
+      <Credits/>
     </div>
   );
 }

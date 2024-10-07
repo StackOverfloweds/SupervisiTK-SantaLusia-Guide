@@ -250,6 +250,7 @@ export default function About() {
                             </SimpleGallery>
                         </section>
                     </div>
+                    
             </>
     )
 }
