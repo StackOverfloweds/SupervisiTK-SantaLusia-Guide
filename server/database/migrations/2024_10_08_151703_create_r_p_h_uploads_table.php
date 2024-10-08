@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('r_p_h_uploads', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Relasi ke tabel users
+            $table->enum('file_type', ['RPH', 'Video Pembelajaran']); // Tipe file
+            $table->string('file_path'); // Lokasi file yang diunggah
             $table->timestamps();
         });
     }

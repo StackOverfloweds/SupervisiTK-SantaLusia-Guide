@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('supervisions', function (Blueprint $table) {
             $table->id();
+            $table->uuid('user_id');
+            $table->json('form_data');
             $table->timestamps();
+            
+            $table->foreign('user_id')
+                ->references('user_id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 
