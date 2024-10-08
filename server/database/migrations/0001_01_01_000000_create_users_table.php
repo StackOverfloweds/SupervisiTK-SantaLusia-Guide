@@ -23,7 +23,7 @@ return new class extends Migration
             $table->uuid('profile_id');
             $table->uuid('user_id');
             $table->string('email')->unique();
-            $table->string('')->uphone_numbernique();
+            $table->string('phone_number')->unique();
             $table->text('second_phone_number')->nullable()->unique();
             $table->text('address')->nullable();
             $table->timestamps();
@@ -56,6 +56,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('profile_user');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }

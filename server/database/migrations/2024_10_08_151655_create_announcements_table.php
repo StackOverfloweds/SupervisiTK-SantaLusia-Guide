@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('announcements', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->text('content');
+            $table->uuid('created_by'); // Ubah menjadi uuid
+            $table->foreign('created_by')->references('user_id')->on('users')->onDelete('cascade'); // Foreign key merujuk ke uuid di tabel users
             $table->timestamps();
         });
+        
     }
 
     /**
