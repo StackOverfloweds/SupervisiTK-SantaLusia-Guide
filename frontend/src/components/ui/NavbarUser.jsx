@@ -17,7 +17,7 @@ export default function NavbarUser() {
                     <li><Link href="/About" className="hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white px-2 py-2 uppercase">Tentang kami</Link></li>
                     <li><Link href="/Contact" className="hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white px-2 py-2 uppercase">Kontak kami</Link></li>
                     <li><Link href="/Registration" className="hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white px-2 py-2 uppercase">Pendaftaran</Link></li>
-                    <li><Link href="admin-pages" className=" hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white px-2 py-2 uppercase">Login</Link></li>
+                    <li><Link href="/admin-pages" className=" hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white px-2 py-2 uppercase">Login</Link></li>
                 </ul>
             </nav>
     )

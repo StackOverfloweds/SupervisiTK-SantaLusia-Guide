@@ -1,7 +1,9 @@
-export default function tambahpengumuman() {
-  return (
-    <div className='bg-black w-screen h-screen text-center flex'>
-      <h1>haiii</h1>
-    </div>
-  );
-}
+
+export default function TambahPengumuman() {
+    return (
+      <div>
+        <h1>Tambah Pengumuman</h1>
+        <p>Ini adalah halaman untuk menambahkan pengumuman baru.</p>
+      </div>
+    );
+  }

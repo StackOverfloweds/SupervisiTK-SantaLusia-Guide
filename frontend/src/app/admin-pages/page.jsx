@@ -1,6 +1,5 @@
 import React from "react";
-// import logo from "@/img/logo.png"
-import NavbarAdmin from "./NabbarAdmin";
+import NavbarAdmin from "../../components/ui/NabbarAdmin";
 import MenuAdmin from "./menu";
 
 export default function Admin() {

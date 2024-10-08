@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 export default function Pengumunan() {
 
   const router = useRouter();
 
-  const gotopage = ()=>{
-    router.push('admin-pages/tambah.jsx')
-  }
+  const gotopage = () => {
+  router.push('/admin-pages/tambahpengumuman'); // Jangan tambahkan ekstensi .jsx
+};
   return (
     <div className='p-4'>
       <div className='text-center mb-4'>
@@ -19,7 +20,8 @@ export default function Pengumunan() {
         </button>
       </div>
 
-      <div className='max-h-[35rem] overflow-y-auto space-y-4'>
+
+      <ScrollArea className='max-h-[35rem] overflow-y-auto space-y-4'>
         <div className='bg-gray-50 p-4 border border-gray-200 rounded-md shadow-sm'>
           <p className='text-gray-800 mb-2'>
             Kepada Yth. Bapak/Ibu Guru, Kami mengingatkan bahwa batas waktu
@@ -111,7 +113,7 @@ export default function Pengumunan() {
             silakan menghubungi koordinator supervisi atau tim IT sekolah.
           </p>
         </div>
-      </div>
+      </ScrollArea>
       <footer className='fixed  bottom-0  w-[100rem] text-center text-gray-500 text-sm py-4'>
         <p>
           Copyright © Supervisi
