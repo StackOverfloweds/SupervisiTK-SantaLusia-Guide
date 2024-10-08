@@ -38,7 +38,7 @@ export default function NavbarUser() {
                         <li><Link href="/About" className={ `${pathName == "/About" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} px-2 py-2 uppercase`}>Tentang kami</Link></li>
                         <li><Link href="/Contact" className={ `${pathName == "/Contact" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} px-2 py-2 uppercase`}>Kontak kami</Link></li>
                         <li><Link href="/Registration" className={ `${pathName == "/Registration" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} px-2 py-2 uppercase`}>Pendaftaran</Link></li>
-                        <li><Link href="/Login" className={ `${pathName == "/Login" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} px-2 py-2 uppercase`}>Login</Link></li>
+                        <li><Link href="/Authentication" className={ `${pathName == "/Login" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} px-2 py-2 uppercase`}>Login</Link></li>
                     </ul>
                 </SheetContent>
             </Sheet>
