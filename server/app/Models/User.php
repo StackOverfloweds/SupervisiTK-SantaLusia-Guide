@@ -6,10 +6,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
-class User extends Authenticatable
+use Illuminate\Support\Str;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
+
+    protected $primaryKey="user_id";
+    public $incrementing=false;
+    protected $keyType = "string";
 
     /**
      * The attributes that are mass assignable.
@@ -18,8 +23,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
         'password',
+        'role'
     ];
 
     /**
@@ -44,4 +49,37 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+     /**
+     * Get the identifier that will be stored in the JWT subject claim.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+    * Return a key value array, containing any custom claims to be added to the JWT.
+    *
+    * @return array
+    */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    /**
+     * create boot method
+     */
+
+     protected static function boot() {
+        parent::boot();
+
+        //generate UUID for user_id
+        static::creating(function($model){
+            $model->user_id=(string) str::uuid();
+        });
+     }
 }
