@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\User;
 use Tymon\JWTAuth\Exceptions\JWTException;
-
+use App\Helpers\JWTHelper;
 class LoginController extends Controller
 {
     /**
@@ -26,40 +26,34 @@ class LoginController extends Controller
             'password' => 'required|string|min:6',
         ]);
 
-        $credential = $request->only('name','password');
+        // check if name its not in db and password is wrong
+        // Retrieve the user by name
+        $user = User::where('name', $request->name)->first();
 
+        // Check if the user exists and if the password is correct
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        
         try {
-        if (!$token = JWTAuth::attempt(credentials: $credential)) 
-        {
-            return response()->json(['error' =>'invalid credential Or Wrong username and Password'],401);
-        }
+            // Generate JWT token for the logged in user
+            $jwt = new JWTHelper();
+            $token = $jwt->generateLoginJWT($user->user_id);
+
+            return response()->json([
+                'token' => $token,
+                'token_type' => 'bearer',
+                'user' => $user,
+            ], 200);
+        
         } catch (JWTException $e) {
-            return response()->json(['error' => 'Could not create token'], 500);
+             // Return a response in case of an error
+             return response()->json(['error' => 'Could not create token'], 500);
         }
-        // Get user information for the response
-        $user = Auth::user();
-
-        return $this->respondWithToken($token,$user);
+        
     }
 
-    /**
-     * Respond with the generated token and user information
-     *
-     * @param string $token
-     * @param User $user
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token, User $user)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'user' => [
-                'name' => $user->name,
-                'role' => $user->role,
-            ]
-        ]);
-    }
+
 
 
 }
