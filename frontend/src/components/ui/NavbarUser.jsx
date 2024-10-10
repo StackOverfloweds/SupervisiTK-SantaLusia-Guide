@@ -35,10 +35,10 @@ export default function NavbarUser() {
                     </SheetHeader>
                     <ul className=" w-full grid grid-cols-1 grid-rows-5 gap-5 items-center font-poppins text-sm pt-5">
                         <li><Link href="/" className={ `${pathName == "/" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} ${defaultStyle}`} >Home</Link></li>
-                        <li><Link href="/About" className={ `${pathName == "/About" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} px-2 py-2 uppercase`}>Tentang kami</Link></li>
-                        <li><Link href="/Contact" className={ `${pathName == "/Contact" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} px-2 py-2 uppercase`}>Kontak kami</Link></li>
-                        <li><Link href="/Registration" className={ `${pathName == "/Registration" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} px-2 py-2 uppercase`}>Pendaftaran</Link></li>
-                        <li><Link href="/Authentication" className={ `${pathName == "/Login" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} px-2 py-2 uppercase`}>Login</Link></li>
+                        <li><Link href="/About" className={ `${pathName == "/About" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} ${defaultStyle}`}>Tentang kami</Link></li>
+                        <li><Link href="/Contact" className={ `${pathName == "/Contact" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} ${defaultStyle}`}>Kontak kami</Link></li>
+                        <li><Link href="/Registration" className={ `${pathName == "/Registration" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} ${defaultStyle}`}>Pendaftaran</Link></li>
+                        <li><Link href="/Authentication" className={ `${pathName == "/Authentication" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} ${defaultStyle}`}>Login</Link></li>
                     </ul>
                 </SheetContent>
             </Sheet>

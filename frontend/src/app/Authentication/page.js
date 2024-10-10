@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import {Button} from "@/components/ui/button";
 import Pembelajaran1 from "@/img/pembelajaran1.jpg"
+import NavbarUser from "@/components/ui/NavbarUser";
 import {
     Popover,
     PopoverContent,
@@ -43,10 +44,13 @@ export default function Authentication() {
         <>
             {/* grid grid-cols-5 */}
             <section className=" w-screen  mx-auto h-screen ">
-                <div className="col-span-3 absolute  w-screen h-screen z-10 border-2 border-blue-500 ">
+                <div className="container mx-auto ">
+                    <NavbarUser/>
+                </div>
+                <div className="col-span-3 absolute  w-screen h-screen z-10 ">
                     <Image src={Pembelajaran1} alt="Pembelajaran1" fill={true} className="rounded-xl object-cover blur-sm"/>
                 </div>
-                <form className="relative flex justify-center items-center  m-auto my-auto w-[400px] h-full  shadow-xl  transition-all duration-100 z-20 " onSubmit={() => submitLogin()} method="POST">
+                <form className="relative flex justify-center items-center  p-2 w-full md:w-[400px] h-full  shadow-xl  z-20 " onSubmit={() => submitLogin()} method="POST">
                     {/* <SwitchButton />
                     <Regis inputs={inputs} setInputs={setInputs}/> */}
                     <Tabs defaultValue="Login" className="w-full m-auto  rounded-xl">
@@ -55,8 +59,8 @@ export default function Authentication() {
                             <TabsTrigger value="Register">Register</TabsTrigger>
                         </TabsList>
                         <div className="w-full m-auto bg-white rounded-xl p-5">
-                            <TabsContent value="Login"><Login inputs={inputs} setInputs={setInputs}/></TabsContent>
-                            <TabsContent value="Register"><Regis inputs={inputs} setInputs={setInputs}/></TabsContent>
+                            <TabsContent value="Login" className="transition-all duration-100 "><Login inputs={inputs} setInputs={setInputs}/></TabsContent>
+                            <TabsContent value="Register" className="transition-all duration-100 "><Regis inputs={inputs} setInputs={setInputs}/></TabsContent>
                         </div>
                     </Tabs>
                 </form>
@@ -67,24 +71,24 @@ export default function Authentication() {
 
 const Login = ({inputs,setInputs}) => {
     return(
-        <div >
-            <h1 className="font-poppinsBold text-center text-3xl">Selamat Datang!!</h1>
-            <p className="font-poppins text-center text-md pb-5 text-pretty text-sm md:w-[250px] md:mx-auto">masuk untuk mulai menjelajahi website kami</p>
+        <div className="">
+            <h1 className="font-poppinsBold text-center text-2xl md:text-3xl">Selamat Datang!!</h1>
+            <p className="font-poppins text-center text-md pb-5 text-pretty text-md md:text-sm w-[300px] md:w-[250px] mx-auto">masuk untuk mulai menjelajahi website kami</p>
             <label className="block text-poppins text-md" htmlFor="email">Email</label>
-            <input type="email" placeholder="Email" autoComplete="username" name="email" className="block w-full text-lg border-2 px-3 py-1 my-2 focus:border-black rounded-md" onChange={(e) => {
+            <input type="email" placeholder="Email" autoComplete="username" name="email" className="block w-full text-lg border-2 px-3 py-1 my-2 focus:border-black rounded-md focus:bg-blue-100" onChange={(e) => {
                 setInputs({
                     ...inputs,
                     email:e.target.value
                 })
             }} value={inputs.email} />
             <label className="block text-poppins text-md" htmlFor="password">Password</label>
-            <input type="password" placeholder="Password" autoComplete="current-password" className="block w-full text-lg border-2 px-3 py-1 my-2 focus:border-black rounded-md" onChange={(e)=>{
+            <input type="password" placeholder="Password" autoComplete="current-password" className="block w-full text-lg border-2 px-3 py-1 my-2 focus:border-black rounded-md focus:bg-blue-100" onChange={(e)=>{
                 setInputs({
                     ...inputs,
                     password:e.target.value
                 })
             }} value={inputs.password}/>
-            <Button className="border border-black mx-auto w-full mt-5">Login</Button>
+            <Button className="border border-black mx-auto w-full mt-5 ">Login</Button>
         </div>                                 
     )
 }
