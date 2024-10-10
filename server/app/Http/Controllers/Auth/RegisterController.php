@@ -19,12 +19,13 @@ class RegisterController extends Controller
      */
     public function Register (Request $request)
     {
+        Log::info("Check input : ",$request->all());
         //validate data
         $request->validate([
             'name' => 'required|string|max:255',
             'password' => 'required|string|min:6',
             'role' => 'required|in:wali_murid,guru,kepala_sekolah',
-            'email' => 'required|string|email|max:255|unique:users,email', 
+            'email' => 'required|string|email|max:255', 
             'phone_number' => 'required|string|max:15', 
             'second_phone_number' => 'nullable|string|max:15', 
             'address' => 'nullable|string|max:255', 
