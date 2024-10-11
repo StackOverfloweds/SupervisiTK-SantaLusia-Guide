@@ -28,7 +28,7 @@ export default function MenuAdmin() {
       onclick: () => handleMenuClick("Pengumpulan"),
     },
     {
-      title: "Halaman Supervice",
+      title: "Halaman Supervici",
       onclick: () => handleMenuClick("Supervicepage"),
     },
     {
@@ -84,7 +84,7 @@ export default function MenuAdmin() {
           <span>supervice</span>
           <span>tk santa lusia</span>
         </div>
-        <ul className='flex flex-col mt-10 space-y-10 ml-[3rem] font-poppins font-semibold'>
+        <ul className='flex flex-col mt-10 space-y-10 ml-[3rem] font-poppins font-bold'>
           {Menu.map((menus, index) => (
             <li key={index} onClick={menus.onclick}>
               <span className={`border-b-2 border-transparent hover:border-white cursor-pointer`}>

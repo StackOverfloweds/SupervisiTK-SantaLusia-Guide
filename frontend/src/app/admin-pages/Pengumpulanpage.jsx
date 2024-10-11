@@ -109,6 +109,17 @@ export default function Pengumpulan() {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
+          <div className="fixed bottom-0 right-0 w-[100rem] h-[5rem] bg-white drop-shadow-xl z-50">
+            <footer className='fixed bottom-0 text-gray-500 text-sm py-7 items-center justify-center w-full '>
+              <p>
+                Copyright © Supervisi
+                <a href='#' className='text-blue-500 hover:underline'>
+                  TK SANTA LUSIA
+                </a>{" "}
+                2024 @ Saloma Banjarnahor
+              </p>
+            </footer>
+          </div>
         </div>
       </div>
     </div>
