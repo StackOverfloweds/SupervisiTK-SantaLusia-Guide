@@ -1,14 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Pengumunan() {
-
   const router = useRouter();
 
   const gotopage = () => {
-  router.push('/admin-pages/tambahpengumuman'); // Jangan tambahkan ekstensi .jsx
-};
+    router.push("/admin-pages/tambahpengumuman"); // Jangan tambahkan ekstensi .jsx
+  };
   return (
     <div className='p-4'>
       <div className='text-center mb-4'>
@@ -19,7 +18,6 @@ export default function Pengumunan() {
           Tambahkan Pengumuman
         </button>
       </div>
-
 
       <ScrollArea className='max-h-[35rem] overflow-y-auto space-y-4'>
         <div className='bg-gray-50 p-4 border border-gray-200 rounded-md shadow-sm'>
@@ -114,15 +112,17 @@ export default function Pengumunan() {
           </p>
         </div>
       </ScrollArea>
-      <footer className='fixed  bottom-0  w-[100rem] text-center text-gray-500 text-sm py-4'>
-        <p>
-          Copyright © Supervisi
-          <a href='#' className='text-blue-500 hover:underline'>
-            TK SANTA LUSIA
-          </a>{" "}
-          2024 @ Saloma Banjarnahor
-        </p>
-      </footer>
+      <div className='fixed bottom-0 right-0 w-[100rem] h-[5rem] bg-white drop-shadow-xl z-50'>
+        <footer className='fixed bottom-0 text-gray-500 text-sm py-7 text-center w-full '>
+          <p>
+            Copyright © Supervisi
+            <a href='#' className='text-blue-500 hover:underline'>
+              TK SANTA LUSIA
+            </a>{" "}
+            2024 @ Saloma Banjarnahor
+          </p>
+        </footer>
+      </div>
     </div>
   );
 }
