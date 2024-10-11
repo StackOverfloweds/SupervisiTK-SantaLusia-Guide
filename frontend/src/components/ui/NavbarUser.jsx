@@ -18,6 +18,7 @@ import {
 
   
 
+
 export default function NavbarUser() {
     const pathName = usePathname()
     let defaultStyle = "px-2 py-2 uppercase text-sm md:text-lg"
@@ -55,6 +56,7 @@ export default function NavbarUser() {
                         tk santa lusia
                     </a>
                 </div>
+
                 <div className="md:hidden visible flex items-center justify-end ">
                     {navbarSheets()}
                 </div>
@@ -64,6 +66,7 @@ export default function NavbarUser() {
                     <li><Link href="/Contact" className={ `${pathName == "/Contact" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} ${defaultStyle}`}>Kontak kami</Link></li>
                     <li><Link href="/Registration" className={ `${pathName == "/Registration" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} ${defaultStyle}`}>Pendaftaran</Link></li>
                     <li><Link href="/Login" className={ `${pathName == "/Login" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} ${defaultStyle}`}>Login</Link></li>
+
                 </ul>
             </nav>
     )
