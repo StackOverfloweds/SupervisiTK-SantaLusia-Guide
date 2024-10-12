@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\RPH\RPHUploadController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -22,3 +23,6 @@ Route::middleware(['cors'])->group(function () {
 
     
 });
+
+// Route to store the file upload (for RPH or Video Pembelajaran)
+Route::post('/rph-upload', [RPHUploadController::class, 'store']);
