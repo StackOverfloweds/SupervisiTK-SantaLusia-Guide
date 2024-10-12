@@ -19,7 +19,7 @@ class RPHUploadController extends Controller
         // Validate incoming request
         $request->validate([
             'user_id' => 'required|uuid|exists:users,user_id', // Validate that user_id is a valid UUID and exists in users table
-            'file' => 'required|file|mimes:pdf,mp4|max:20480', // Restrict file types and size
+            'file' => 'required|file|mimes:pdf,mp4|max:61440', // Restrict file types and size
             'file_type' => 'required|in:RPH,Video Pembelajaran',
             'description' => 'required|string|max:256', // Validate the description field
         ]);
@@ -37,8 +37,20 @@ class RPHUploadController extends Controller
             // Create a unique file name
             $fileName = time() . '-' . $file->getClientOriginalName();
 
-            // Interact with Google Drive to upload the file
-            $filePath = Storage::disk('google')->putFileAs('', $file, $fileName);
+            // Determine folder name based on file type
+            $folderName = $fileType === 'RPH' ? 'RPH_Files' : 'Video_Pembelajaran_Files';
+
+            // Check if the folder exists; if not, create it
+            $folderExists = Storage::disk('google')->exists($folderName);
+            if (!$folderExists) {
+                Storage::disk('google')->makeDirectory($folderName);
+                Log::info("Folder created: " . $folderName);
+            } else {
+                Log::info("Folder already exists: " . $folderName);
+            }
+
+            // Upload the file into the specific folder
+            $filePath = Storage::disk('google')->putFileAs($folderName, $file, $fileName);
 
             // Save the metadata and file path in the database
             $rphUpload = new RPHUploads();
