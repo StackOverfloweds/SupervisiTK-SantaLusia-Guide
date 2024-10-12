@@ -78,34 +78,34 @@ class RPHUploadController extends Controller
     }
 
     public function getAllFiles(Request $request)
-{
-    try {
-        // Get the path for the root or a specific folder
-        $path = ''; // Specify the path if needed, e.g., 'RPH_Files' or 'Video_Pembelajaran_Files'
-        $recursive = true; // Change to false if you do not want to include subfolders
+    {
+        try {
+            // Get the path for the root or a specific folder
+            $path = ''; // Specify the path if needed, e.g., 'RPH_Files' or 'Video_Pembelajaran_Files'
+            $recursive = true; // Change to false if you do not want to include subfolders
 
-        // Retrieve all files from Google Drive
-        $files = Gdrive::all($path, $recursive);
+            // Retrieve all files from Google Drive
+            $files = Gdrive::all($path, $recursive);
 
-        // Check if files collection is empty
-        if ($files->isEmpty()) {
-            return response()->json(['message' => 'No files found.']);
+            // Check if files collection is empty
+            if ($files->isEmpty()) {
+                return response()->json(['message' => 'No files found.']);
+            }
+            Log::info("chekking files " .json_encode($files));
+
+            // Map files to include useful metadata
+            $fileData = $files->map(function ($file) {
+                return [
+                    'name' => $file['path'], // Assuming 'path' gives you the unique identifier for the file
+                ];
+            });
+
+            return response()->json(['files' => $fileData],200);
+        } catch (\Exception $e) {
+            Log::error('Error retrieving files from Google Drive: ' . $e->getMessage());
+            return response()->json(['message' => 'Error retrieving files.'], 500);
         }
-        Log::info("chekking files " .json_encode($files));
-
-        // Map files to include useful metadata
-        $fileData = $files->map(function ($file) {
-            return [
-                'name' => $file['path'], // Assuming 'path' gives you the unique identifier for the file
-            ];
-        });
-
-        return response()->json(['files' => $fileData],200);
-    } catch (\Exception $e) {
-        Log::error('Error retrieving files from Google Drive: ' . $e->getMessage());
-        return response()->json(['message' => 'Error retrieving files.'], 500);
     }
-}
 
 
 

@@ -25,5 +25,5 @@ Route::middleware(['cors'])->group(function () {
 });
 
 // Route to store the file upload (for RPH or Video Pembelajaran)
-Route::post('/rph-upload', [RPHUploadController::class, 'store']);
+Route::post('/rph-upload', [RPHUploadController::class, 'store ']);
 Route::get('/rph-get', [RPHUploadController::class, 'getAllFiles']);
