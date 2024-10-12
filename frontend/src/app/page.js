@@ -1,16 +1,16 @@
 import Image from "next/image";
-import Fotosantalusia from "@/img/FOTOSANTALUSIA.jpg"
-import iconBuku from "@/img/iconBuku.jpg"
-import iconSalib from "@/img/iconSalib.png"
-import santaLusia from "@/img/santaLusia.jpg"
-import GuruSantaLusia from "@/img/Gurusantalusia.jpg"
-import Pembelajaran1 from "@/img/pembelajaran1.jpg"
-import Pembelajaran2 from "@/img/pembeljaran2.jpg"
-import CookingClass from "@/img/cookingclass.jpg"
-import Gambar2 from "@/img/gambbar2.jpg"
-import Gambar3 from "@/img/DokumentasiKegiatan/001.jpg"
-import NavbarUser from "@/components/ui/NavbarUser"
-import { Button } from "@/components/ui/button"
+import Fotosantalusia from "../img/FOTOSANTALUSIA.jpg"
+import iconBuku from "../img/iconBuku.jpg"
+import iconSalib from "../img/iconSalib.png"
+import santaLusia from "../img/santaLusia.jpg"
+import GuruSantaLusia from "../img/Gurusantalusia.jpg"
+import Pembelajaran1 from "../img/pembelajaran1.jpg"
+import Pembelajaran2 from "../img/pembeljaran2.jpg"
+import CookingClass from "../img/cookingclass.jpg"
+import Gambar2 from "../img/gambbar2.jpg"
+import Gambar3 from "../img/DokumentasiKegiatan/001.jpg"
+import NavbarUser from "../components/ui/NavbarUser"
+import { Button } from "../components/ui/button"
 import { FaRegGem } from "react-icons/fa";
 import { GoTrophy } from "react-icons/go";
 import { FaLocationDot } from "react-icons/fa6";

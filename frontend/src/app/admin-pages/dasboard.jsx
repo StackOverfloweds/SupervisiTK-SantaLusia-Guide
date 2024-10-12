@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../components/ui/button";
 import Logo from "../../img/logo.png";
 
 export default function Dashboard() {

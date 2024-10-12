@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "../../components/ui/scroll-area";
 
 export default function Pengumunan() {
   const router = useRouter();
