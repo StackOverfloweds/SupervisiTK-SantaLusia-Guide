@@ -10,37 +10,19 @@ export function  AuthProvider({children}) {
     const [userData, setUserData] = useState(null);
     const [authMessage, setAuthMessage] = useState(null);
     const router = useRouter();
+    const [token, setToken] = useState(null);
 
     useEffect(() => {
-        const token = Cookies.get("token");
-        if(!token) return;
-        const validation = validationToken();
-        if(validation == null){
-            router.push("/")
-            return;
+        const token = sessionStorage.getItem("token");
+        if(!token) {
+            router.push("/Authentication")
+            return
         }
-        router.push("/admin");
+        router.push("/admin-pages");
+        return
     },[])
 
-    const validationToken = async (token) => {
-        if(!token){
-            console.log("harap masukkan token")
-            return null;
-        }
-        try{
-            const validation = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/validation_Token`,{
-                headers:"application/json",
-                body:token
-            })
-            let val = await validation.json();
-            setUserData(val.data)
-        }catch(e) {
-            setAuthMessage(e.message);
-            return 
-        }
-        return val;
-    }
-
+    
     const Register = async(credentials) => {
         if(!credentials){
             setAuthMessage("Harap masukkan credential");
@@ -66,8 +48,7 @@ export function  AuthProvider({children}) {
                     "address":credentials.address
                 })
             })
-            let reg = await Reg.json();
-            return reg;
+            return Reg;
         }catch(e){
             setAuthMessage(e);
             console.error(e);
@@ -88,7 +69,8 @@ export function  AuthProvider({children}) {
         try{
             const Login = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login`,{
                 headers:{
-                    "Content-Type":"application/json"
+                    "Content-Type":"application/json",
+                    "Authorization" : `bearer ${token}`
                 },
                 method:"POST",
                 body:JSON.stringify({
@@ -96,10 +78,13 @@ export function  AuthProvider({children}) {
                     "password" : credentials.password
                 })
             })
-            const dat = await Login.json()
-            setAuthMessage("Login Berhasil")
-            setUserData(dat.data);
-            Cookies.set("token",dat.data.token);
+            if(Login.ok){
+                const dat = await Login.json()
+                setAuthMessage("Login Berhasil")
+                setUserData(dat.user);
+                sessionStorage.setItem("token",dat.token);
+                setIsAuthenticated(true);
+            }
             return Login;
         }catch(e){
             setAuthMessage(e);
