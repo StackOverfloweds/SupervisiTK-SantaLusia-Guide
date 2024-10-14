@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import Fotosantalusia from "@/img/FOTOSANTALUSIA.jpg"
 import iconBuku from "@/img/iconBuku.jpg"
 import iconSalib from "@/img/iconSalib.png"

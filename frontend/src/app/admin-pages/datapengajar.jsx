@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "../../components/ui/scroll-area";
 
 export default function DataPengajar() {
   // Data dummy untuk daftar pengajar

@@ -1,12 +1,12 @@
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "../../components/ui/scroll-area";
 
 export default function Pengumunan() {
   const router = useRouter();
 
   const gotopage = () => {
-    router.push("/admin-pages/tambahpengumuman"); // Jangan tambahkan ekstensi .jsx
+    const r =  router.push("/admin-pages/component-admin/tambah-pengumuman");
+    console.log('isi nya', r)
   };
   return (
     <div className='p-4'>
