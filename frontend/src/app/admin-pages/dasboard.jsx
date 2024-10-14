@@ -64,63 +64,63 @@ export default function Dashboard() {
             Halaman Pengumpulan Guru
           </strong>
         </div>
-        <div class='overflow-x-auto'>
-          <table class='min-w-full border-collapse block md:table'>
-            <thead class='block md:table-header-group'>
-              <tr class='border border-gray-300 md:border-none block md:table-row'>
-                <th class='bg-gray-100 p-2 text-left block md:table-cell'>
+        <div className='overflow-x-auto'>
+          <table className='min-w-full border-collapse block md:table'>
+            <thead className='block md:table-header-group'>
+              <tr className='border border-gray-300 md:border-none block md:table-row'>
+                <th className='bg-gray-100 p-2 text-left block md:table-cell'>
                   No.
                 </th>
-                <th class='bg-gray-100 p-2 text-left block md:table-cell'>
+                <th className='bg-gray-100 p-2 text-left block md:table-cell'>
                   Nama Guru
                 </th>
-                <th class='bg-gray-100 p-2 text-left block md:table-cell'>
+                <th className='bg-gray-100 p-2 text-left block md:table-cell'>
                   Laporan Supervisi
                 </th>
-                <th class='bg-gray-100 p-2 text-left block md:table-cell'>
+                <th className='bg-gray-100 p-2 text-left block md:table-cell'>
                   Laporan RPH
                 </th>
               </tr>
             </thead>
-            <tbody class='block md:table-row-group'>
-              <tr class='bg-white border border-gray-300 md:border-none block md:table-row'>
-                <td class='p-2 text-left block md:table-cell'>1</td>
-                <td class='p-2 text-left block md:table-cell'>
+            <tbody className='block md:table-row-group'>
+              <tr className='bg-white border border-gray-300 md:border-none block md:table-row'>
+                <td className='p-2 text-left block md:table-cell'>1</td>
+                <td className='p-2 text-left block md:table-cell'>
                   Widia Nabaho S.Pd
                 </td>
-                <td class='p-2 text-left block md:table-cell text-green-500'>
+                <td className='p-2 text-left block md:table-cell text-green-500'>
                   Sukses
                 </td>
-                <td class='p-2 text-left block md:table-cell text-green-500'>
+                <td className='p-2 text-left block md:table-cell text-green-500'>
                   Sukses
                 </td>
               </tr>
-              <tr class='bg-white border border-gray-300 md:border-none block md:table-row'>
-                <td class='p-2 text-left block md:table-cell'>2</td>
-                <td class='p-2 text-left block md:table-cell'>
+              <tr className='bg-white border border-gray-300 md:border-none block md:table-row'>
+                <td className='p-2 text-left block md:table-cell'>2</td>
+                <td className='p-2 text-left block md:table-cell'>
                   Florensia Lumban Gaol S.Pd
                 </td>
-                <td class='p-2 text-left block md:table-cell text-red-500'>
+                <td className='p-2 text-left block md:table-cell text-red-500'>
                   Belum Dikirim
                 </td>
-                <td class='p-2 text-left block md:table-cell text-green-500'>
+                <td className='p-2 text-left block md:table-cell text-green-500'>
                   Sukses
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <div class='flex justify-end mt-4'>
-            <button class='px-3 py-1 border rounded-l bg-gray-200 text-gray-700'>
+          <div className='flex justify-end mt-4'>
+            <button className='px-3 py-1 border rounded-l bg-gray-200 text-gray-700'>
               «
             </button>
-            <button class='px-3 py-1 border bg-gray-200 text-gray-700'>
+            <button className='px-3 py-1 border bg-gray-200 text-gray-700'>
               1
             </button>
-            <button class='px-3 py-1 border bg-gray-200 text-gray-700'>
+            <button className='px-3 py-1 border bg-gray-200 text-gray-700'>
               2
             </button>
-            <button class='px-3 py-1 border rounded-r bg-gray-200 text-gray-700'>
+            <button className='px-3 py-1 border rounded-r bg-gray-200 text-gray-700'>
               »
             </button>
           </div>

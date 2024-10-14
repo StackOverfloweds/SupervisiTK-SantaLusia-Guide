@@ -1,6 +1,6 @@
 "use client"
 import { createContext, useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import Cookies from "js-cookie";
 
 const AuthContext = createContext();
@@ -28,7 +28,7 @@ export function  AuthProvider({children}) {
             return null;
         }
         try{
-            const validation = await fetch(`${process.env.BACKEND_API}/validation_Token`,{
+            const validation = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/validation_Token`,{
                 headers:"application/json",
                 body:token
             })
@@ -41,7 +41,41 @@ export function  AuthProvider({children}) {
         return val;
     }
 
+    const Register = async(credentials) => {
+        if(!credentials){
+            setAuthMessage("Harap masukkan credential");
+            return;
+        }
+        if(credentials.password != credentials.confirm_password){
+            setAuthMessage("password dengan konfirmasi password berbeda");
+            return;
+        }
+        try{
+            const Reg = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/register`,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    "name" : `${credentials.firstName} ${credentials.lastName}`,
+                    "role": credentials?.role ? credentials.role : process.env.NEXT_PUBLIC_ROLE_USER,
+                    "phone_number": credentials.phone_number,
+                    "second_phone_number" : credentials.second_phone_number,
+                    "email":credentials.email,
+                    "password":credentials.password,
+                    "address":credentials.address
+                })
+            })
+            let reg = await Reg.json();
+            return reg;
+        }catch(e){
+            setAuthMessage(e);
+            console.error(e);
+        }
+    }
+
     const login = async (credentials) => {
+        console.log(credentials)
         if(!credentials){
             setAuthMessage("Harap masukkan credential")
             return;
@@ -52,13 +86,15 @@ export function  AuthProvider({children}) {
         }
 
         try{
-            const Login = await fetch(`${process.env.BACKEND_API}/api/Login`,{
-                headers:"Application/json",
+            const Login = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login`,{
+                headers:{
+                    "Content-Type":"application/json"
+                },
                 method:"POST",
-                body:{
-                    email: credentials.email,
-                    password : credentials.password
-                }
+                body:JSON.stringify({
+                    "name": credentials.firstName,
+                    "password" : credentials.password
+                })
             })
             const dat = await Login.json()
             setAuthMessage("Login Berhasil")
@@ -66,7 +102,8 @@ export function  AuthProvider({children}) {
             Cookies.set("token",dat.data.token);
             return Login;
         }catch(e){
-            setAuthMessage(e.message);
+            setAuthMessage(e);
+            console.log(e)
             return;
         }
     }
@@ -79,9 +116,11 @@ export function  AuthProvider({children}) {
     }
 
     return(
-        <AuthContext.Provider value={{ isAuthenticated, userData, authMessage, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, userData, authMessage, login, logout, Register }}>
             {children}
         </AuthContext.Provider>
     )
 
 }
+
+export default AuthContext;
