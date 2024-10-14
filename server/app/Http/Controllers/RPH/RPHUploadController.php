@@ -107,6 +107,54 @@ class RPHUploadController extends Controller
         }
     }
 
+    /**
+     * Download a file from Google Drive.
+     */
+    public function downloadFile($fileName)
+    {
+        try {
+            // Check if the file exists on Google Drive
+            if (!Storage::disk('google')->exists($fileName)) {
+                return response()->json(['message' => 'File not found.'], 404);
+            }
+    
+            // Get the file's content from Google Drive
+            $fileContent = Storage::disk('google')->get($fileName);
+    
+            // Guess MIME type manually based on the file extension
+             $extension = pathinfo($fileName, PATHINFO_EXTENSION);
+             $mimeType = $this->getMimeType($extension);
+
+    
+            // Download the file with proper headers
+            return response($fileContent, 200)
+                ->header('Content-Type', $mimeType)
+                ->header('Content-Disposition', 'attachment; filename="' . basename($fileName) . '"');
+        } catch (Exception $e) {
+            Log::error('Error downloading file from Google Drive: ' . $e->getMessage());
+            return response()->json(['message' => 'Error downloading file.'], 500);
+        }
+    }
+
+    /**
+     * Manually determine the MIME type based on the file extension.
+     */
+    private function getMimeType($extension)
+    {
+        $mimeTypes = [
+            'pdf' => 'application/pdf',
+            'mp4' => 'video/mp4',
+            'jpeg' => 'image/jpeg',
+            'jpg' => 'image/jpeg',
+            'png' => 'image/png',
+            'doc' => 'application/msword',
+            'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            // Add more types as needed
+        ];
+
+        return $mimeTypes[strtolower($extension)] ?? 'application/octet-stream'; // Default to binary stream
+    }
+        
 
 
 
