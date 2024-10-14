@@ -86,7 +86,7 @@ export function  AuthProvider({children}) {
         }
 
         try{
-            const Login = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login`,{
+            const Login = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login/`,{
                 headers:{
                     "Content-Type":"application/json"
                 },
