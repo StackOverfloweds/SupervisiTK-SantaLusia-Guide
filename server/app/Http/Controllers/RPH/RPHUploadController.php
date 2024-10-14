@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log; // For logging errors
 use App\Models\RPHUploads;
+use App\Models\User;
 use Exception;
 use Yaza\LaravelGoogleDriveStorage\Gdrive;
 class RPHUploadController extends Controller
@@ -78,54 +79,74 @@ class RPHUploadController extends Controller
     }
 
     public function getAllFiles(Request $request)
-    {
-        try {
-            // Get the path for the root or a specific folder
-            $path = ''; // Specify the path if needed, e.g., 'RPH_Files' or 'Video_Pembelajaran_Files'
-            $recursive = true; // Change to false if you do not want to include subfolders
+{
+    try {
+        // Get all RPH uploads from the database with user information, filtering by role
+        $uploads = RPHUploads::with('user') // Load the user relationship
+            ->whereHas('user', function($query) {
+                $query->where('role', 'guru'); // Filter to only include users with the role of "guru"
+            })
+            ->select('user_id', 'file_type', 'description', 'file_path')
+            ->get();
 
-            // Retrieve all files from Google Drive
-            $files = Gdrive::all($path, $recursive);
-
-            // Check if files collection is empty
-            if ($files->isEmpty()) {
-                return response()->json(['message' => 'No files found.']);
-            }
-            Log::info("chekking files " .json_encode($files));
-
-            // Map files to include useful metadata
-            $fileData = $files->map(function ($file) {
-                return [
-                    'name' => $file['path'], // Assuming 'path' gives you the unique identifier for the file
-                ];
-            });
-
-            return response()->json(['files' => $fileData],200);
-        } catch (\Exception $e) {
-            Log::error('Error retrieving files from Google Drive: ' . $e->getMessage());
-            return response()->json(['message' => 'Error retrieving files.'], 500);
+        // Check if uploads collection is empty
+        if ($uploads->isEmpty()) {
+            return response()->json(['message' => 'No files found for users with role "guru".']);
         }
+
+        // Map uploads to include useful metadata along with the Google Drive file path
+        $fileData = $uploads->map(function ($upload) {
+            return [
+                'user_id' => $upload->user_id,
+                'user_name' => $upload->user->name ?? 'Unknown', // Safely access the user's name
+                'role' => $upload->user->role, // Get the user's role
+                'file_type' => $upload->file_type,
+                'description' => $upload->description,
+                'file_path' => $upload->file_path, // This is the path stored in the database
+                'name' => basename($upload->file_path), // Get the file name from the path
+            ];
+        });
+
+        return response()->json(['files' => $fileData], 200);
+    } catch (\Exception $e) {
+        Log::error('Error retrieving files from database: ' . $e->getMessage());
+        return response()->json(['message' => 'Error retrieving files.'], 500);
     }
+}
+
 
     /**
      * Download a file from Google Drive.
      */
-    public function downloadFile($fileName)
+    public function downloadFile($userId, $fileName, $file_type)
     {
         try {
-            // Check if the file exists on Google Drive
-            if (!Storage::disk('google')->exists($fileName)) {
-                return response()->json(['message' => 'File not found.'], 404);
+            // Check if the user exists and has the right to download the file
+            $user = User::find($userId); // Assuming you have a User model to find users by their ID
+            Log::info("chekc user : ".json_encode($user));
+            if (!$user) {
+                return response()->json(['message' => 'User not found.'], 404);
             }
-    
-            // Get the file's content from Google Drive
-            $fileContent = Storage::disk('google')->get($fileName);
-    
-            // Guess MIME type manually based on the file extension
-             $extension = pathinfo($fileName, PATHINFO_EXTENSION);
-             $mimeType = $this->getMimeType($extension);
 
-    
+             // Determine folder name search in folder if its exist
+             $folderName = $file_type === 'RPH' ? 'RPH_Files' : 'Video_Pembelajaran_Files';
+
+             // Check if the folder exists; if not, create it
+             $folderExists = Storage::disk('google')->exists($folderName);
+             
+             if (!$folderExists) {
+                 return response()->json(['message' => 'there is no folder'], 404);
+             } 
+             
+                 Log::info("Folder already exists: " . $folderName);
+                  // Get the file's content from Google Drive
+                $fileContent = Storage::disk('google')->get($fileName);
+
+                // Guess MIME type manually based on the file extension
+                $extension = pathinfo($fileName, PATHINFO_EXTENSION);
+                $mimeType = $this->getMimeType($extension);
+             
+ 
             // Download the file with proper headers
             return response($fileContent, 200)
                 ->header('Content-Type', $mimeType)
@@ -135,6 +156,7 @@ class RPHUploadController extends Controller
             return response()->json(['message' => 'Error downloading file.'], 500);
         }
     }
+
 
     /**
      * Manually determine the MIME type based on the file extension.
