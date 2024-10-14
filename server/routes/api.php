@@ -15,7 +15,7 @@ Route::middleware(['cors'])->group(function () {
         Route::post('/register', [RegisterController::class, 'register']);
         
         // Login Route with middleware to check token
-        Route::post('/login', action: [LoginController::class, 'login'])->middleware('token');;
+        Route::post('/login', action: [LoginController::class, 'login']);
         
         // Logout Route with middleware to check token
         Route::delete('/logout', [LogoutController::class, 'logout']);
