@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image"
-import logo from "@/img/logo.png"
+import logo from "../../img/logo.png"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { usePathname } from "next/navigation"
