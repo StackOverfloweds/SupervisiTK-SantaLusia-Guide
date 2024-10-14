@@ -8,7 +8,7 @@ export default function Grupchat() {
       </h2>
       <div className='text-center'>
         <LinkPreview
-          url='#'
+          url='https://chat.whatsapp.com/G6bxdiPvfhp9iFo1Z7CUTo'
           className='my-custom-class'
           width={200}
           height={100}
