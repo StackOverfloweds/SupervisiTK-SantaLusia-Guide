@@ -10,7 +10,7 @@ class RPHUploads extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'file_type', 'file_path',
+        'user_id', 'file_type', 'file_path','description'
     ];
 
     /**
