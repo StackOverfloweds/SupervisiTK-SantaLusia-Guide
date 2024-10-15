@@ -31,7 +31,7 @@ export function  AuthProvider({children}) {
 
     const ValidateToken = async (token) => {
         try{
-            const validate = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/validate-token/${token}`,{
+            const validate = await fetch(${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/validate-token/${token},{
              method:"GET",
              headers:{
                 "Content-Type" : "application/json"
@@ -56,13 +56,13 @@ export function  AuthProvider({children}) {
         }
         try{
 
-            const Reg = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/register`,{
+            const Reg = await fetch(${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/register,{
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json"
                 },
                 body:JSON.stringify({
-                    "name" : `${credentials.firstName} ${credentials.lastName}`,
+                    "name" : ${credentials.firstName} ${credentials.lastName},
                     "role": credentials?.role ? credentials.role : process.env.NEXT_PUBLIC_ROLE_USER,
                     "phone_number": credentials.phone_number,
                     "second_phone_number" : credentials.second_phone_number,
@@ -82,54 +82,54 @@ export function  AuthProvider({children}) {
 
 
 
-  const login = async (credentials) => {
-    if(!credentials){
-        setAuthMessage("Harap masukkan credential")
-        return;
-    }
-    if(credentials.email == " " || credentials.password == " "){
-        setAuthMessage("email atau password masih kosong")
-        return;
-    }
-      
-    try {
-      const Login = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login/`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${tokens}`,
-           },
-          method:"POST",
-          body:JSON.stringify({
-            "name": credentials.firstName,
-            "password" : credentials.password
-             })
-         });
-        const dat = await Login.json()
-        if(Login.ok){
-            setAuthMessage("Login Berhasil")
-            setUserData(dat);
-            sessionStorage.setItem("token",dat.token);
-            setToken(dat.token);
-            setIsAuthenticated(true);
-            return dat;
+    const login = async (credentials) => {
+        if(!credentials){
+            setAuthMessage("Harap masukkan credential")
+            return;
         }
-        return dat;
-     }catch(e){
-       setAuthMessage(e);
-       console.log(e)
-       return;
-     }
-  };
+        if(credentials.email == " " || credentials.password == " "){
+            setAuthMessage("email atau password masih kosong")
+            return;
+        }
+        
+        try {
+            const Login = await fetch(
+                ${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login/,
+                {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: Bearer ${tokens},
+                },
+                method:"POST",
+                body:JSON.stringify({
+                    "name": credentials.firstName,
+                    "password" : credentials.password
+                    })
+                });
+            const dat = await Login.json()
+            if(Login.ok){
+                setAuthMessage("Login Berhasil")
+                setUserData(dat);
+                sessionStorage.setItem("token",dat.token);
+                setToken(dat.token);
+                setIsAuthenticated(true);
+                return dat;
+            }
+            return dat;
+        }catch(e){
+            setAuthMessage(e);
+            console.log(e)
+            return;
+        }
+    };
 
     const logout = async () => {
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/logout`, {
+            const response = await fetch(${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/logout, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${sessionStorage.getItem("token")}`
+                    'Authorization': Bearer ${sessionStorage.getItem("token")}
                 },
             });
     
