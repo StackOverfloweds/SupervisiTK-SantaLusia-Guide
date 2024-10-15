@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\jwt\validateToken;
 use App\Http\Controllers\RPH\RPHUploadController;
 use App\Http\Controllers\User\getUser;
 use App\Http\Controllers\User\userController;
@@ -44,6 +45,9 @@ Route::middleware(['cors'])->group(function () {
 
         // Delete a user
         Route::delete('/delete/{userId}', [UserController::class, 'destroy']);
+
+        // Route to validate the JWT token
+        Route::get('/validate-token/{token}', [validateToken::class, 'validateToken']);
     });
     
     
