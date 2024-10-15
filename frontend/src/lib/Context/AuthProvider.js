@@ -78,37 +78,6 @@ export function  AuthProvider({children}) {
         }
     }
 
-    const Register = async(credentials) => {
-        if(!credentials){
-            setAuthMessage("Harap masukkan credential");
-            return;
-        }
-        if(credentials.password != credentials.confirm_password){
-            setAuthMessage("password dengan konfirmasi password berbeda");
-            return;
-        }
-        try{
-            const Reg = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/register`,{
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
-                },
-                body:JSON.stringify({
-                    "name" : `${credentials.firstName} ${credentials.lastName}`,
-                    "role": credentials?.role ? credentials.role : process.env.NEXT_PUBLIC_ROLE_USER,
-                    "phone_number": credentials.phone_number,
-                    "second_phone_number" : credentials.second_phone_number,
-                    "email":credentials.email,
-                    "password":credentials.password,
-                    "address":credentials.address
-                })
-            })
-            return Reg;
-        }catch(e){
-            setAuthMessage(e);
-            console.error(e);
-        }
-    }
 
     const login = async (credentials) => {
         console.log(credentials)
