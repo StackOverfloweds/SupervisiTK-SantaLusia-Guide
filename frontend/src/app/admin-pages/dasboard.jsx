@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { Button } from "../../components/ui/button";
 import Logo from "../../img/logo.png";
-import { ScrollArea } from "../../components/ui/scroll-area";
+// import { ScrollArea } from "../../components/ui/scroll-area";
 import { useState } from "react";
 
 export default function Dashboard() {
