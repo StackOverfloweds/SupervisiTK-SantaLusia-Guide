@@ -1,4 +1,6 @@
-
+"use client";
+import { useState ,useEffect} from "react";
+import axios from "axios";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,7 +11,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '../../components/ui/alert-dialog';
+} from "../../components/ui/alert-dialog";
 import {
   Select,
   SelectContent,
@@ -19,6 +21,21 @@ import {
 } from "../../components/ui/select";
 
 export default function Pengumpulan() {
+  const [teachers, setTeachers] = useState([]);
+
+  useEffect(() => {
+    const fetchTeachers = async () => {
+      try {
+        const response = await axios.get("/api/teachers"); // Ganti dengan endpoint API Anda
+        setTeachers(response.data);
+      } catch (error) {
+        console.error("Error fetching teachers:", error);
+      }
+    };
+
+    fetchTeachers();
+  }, []);
+
   return (
     <div className='p-8'>
       {/* Header */}
@@ -34,12 +51,18 @@ export default function Pengumpulan() {
             htmlFor='namaGuru'>
             Nama Guru :
           </label>
-          <input
-            id='namaGuru'
-            type='text'
-            className='w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-200'
-            placeholder='Masukkan nama guru'
-          />
+          <Select>
+            <SelectTrigger className='w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-200 '>
+              <SelectValue placeholder='Nama Guru' />
+            </SelectTrigger>
+            <SelectContent>
+              {teachers.map((teacher) => (
+                <SelectItem key={teacher.id} value={teacher.id}>
+                  {teacher.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         {/* Jenis Pengumpulan */}
@@ -109,7 +132,7 @@ export default function Pengumpulan() {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-          <div className="fixed bottom-0 right-0 w-[100rem] h-[5rem] bg-white drop-shadow-xl z-50">
+          <div className='fixed bottom-0 right-0 w-[100rem] h-[5rem] bg-white drop-shadow-xl z-50'>
             <footer className='fixed bottom-0 text-gray-500 text-sm py-7 items-center justify-center w-full '>
               <p>
                 Copyright © Supervisi
