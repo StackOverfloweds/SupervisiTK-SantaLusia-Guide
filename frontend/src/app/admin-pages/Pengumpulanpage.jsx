@@ -1,4 +1,4 @@
-
+"use client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,17 +9,18 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '../../components/ui/alert-dialog';
+} from "../../components/ui/alert-dialog";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "../../components/ui/select";
 import { useEffect, useState } from "react"; // Import useEffect and useState
 import { Router } from "next/router";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 export default function Pengumpulan() {
   const [users, setUsers] = useState([]); // State to hold users
   const [selectedUserId, setSelectedUserId] = useState(null); // State to hold selected user ID
@@ -32,7 +33,9 @@ export default function Pengumpulan() {
     // Fetch users from the backend
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/prof-user`); // Adjust the API endpoint as necessary
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/prof-user`
+        ); // Adjust the API endpoint as necessary
         const data = await response.json();
         setUsers(data);
       } catch (error) {
@@ -58,10 +61,13 @@ export default function Pengumpulan() {
 
     setLoading(true); // Set loading to true when the upload starts
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/rph/upload`, {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API}/api/rph/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Error uploading file.");
@@ -179,12 +185,14 @@ export default function Pengumpulan() {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
+
           {loading && (
-            <div className="flex justify-center items-center mt-4">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div> {/* Spinner */}
+            <div className='flex justify-center items-center mt-4'>
+              <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600'></div>{" "}
+              {/* Spinner */}
             </div>
           )}
-          <div className="fixed bottom-0 right-0 w-[100rem] h-[5rem] bg-white drop-shadow-xl z-50">
+          <div className='fixed bottom-0 right-0 w-[100rem] h-[5rem] bg-white drop-shadow-xl z-50'>
             <footer className='fixed bottom-0 text-gray-500 text-sm py-7 items-center justify-center w-full '>
               <p>
                 Copyright © Supervisi

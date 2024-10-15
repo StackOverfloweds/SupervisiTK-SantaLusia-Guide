@@ -1,12 +1,27 @@
 "use client"
 import { useState,useContext, useEffect } from "react";
 import Image from "next/image";
-import Pembelajaran1 from "@/img/pembelajaran1.jpg"
-import NavbarUser from "@/components/ui/NavbarUser";
-import { Toaster } from "@/components/ui/toaster"
-import AuthContext from "@/lib/Context/AuthProvider";
-import { useToast } from "@/hooks/use-toast";
-import Login from "./Login.js";
+
+import {Button} from "../../components/ui/button";
+import Pembelajaran1 from "../../img/pembelajaran1.jpg"
+import NavbarUser from "../../components/ui/NavbarUser";
+import { ReloadIcon } from "@radix-ui/react-icons"
+import { Toaster } from "../../components/ui/toaster"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+  } from "../../components/ui/popover"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../../components/ui/tabs"
+
+import AuthContext from "../../lib/Context/AuthProvider";
+import { useToast } from "../../hooks/use-toast";
+
 
 export default function Authentication() {
     const [inputs, setInputs] = useState({
