@@ -1,6 +1,7 @@
-"use client";
+
 import React, { useEffect, useState } from "react";
 import { ScrollArea } from "../../components/ui/scroll-area";
+import { Tambah } from "../../app/admin-pages/component-admin/tambah-pengajar";
 
 export default function DataPengajar() {
   const [pengajar, setPengajar] = useState([]);
@@ -11,14 +12,18 @@ export default function DataPengajar() {
     email: "",
     phone_number: "",
     second_phone_number: "",
-    address: ""
+    address: "",
   });
   const [error, setError] = useState(null);
-  
+  const [showDialog, setShowDialog] = useState(false);
+  const [userInfo, setUserInfo] = useState({ name: "", unit: "" });
+
   useEffect(() => {
     const fetchPengajar = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/prof-user`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/prof-user`
+        );
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -35,9 +40,12 @@ export default function DataPengajar() {
   // Function to handle teacher deletion
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/delete/${id}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/delete/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to delete teacher");
@@ -68,13 +76,16 @@ export default function DataPengajar() {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/update/${editingTeacher.user_id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newTeacherData),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/update/${editingTeacher.user_id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newTeacherData),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -83,7 +94,9 @@ export default function DataPengajar() {
 
       const updatedTeacher = await response.json();
       setPengajar((prev) =>
-        prev.map((item) => (item.user_id === updatedTeacher.user_id ? updatedTeacher : item))
+        prev.map((item) =>
+          item.user_id === updatedTeacher.user_id ? updatedTeacher : item
+        )
       );
 
       // Reset editing state
@@ -97,16 +110,35 @@ export default function DataPengajar() {
       setError(error.message); // Capture error for user feedback
     }
   };
+  const handleShowDialog = (name, unit) => {
+    setUserInfo({ name, unit });
+    setShowDialog(true);
+  };
+  const handleSubmit = (confirm) => {
+    if (confirm) {
+      // Handle the submit action here
+      console.log("Submitted:", userInfo);
+    }
+    setShowDialog(false);
+  };
 
   return (
     <div className='fixed p-6 mt-0 '>
       <div className='flex flex-col text-center items-center justify-center'>
         <h1 className='text-3xl font-bold mb-4'>Data Pengajar</h1>
-        <a
-          href='#'
-          className='text-blue-600 font-semibold text-lg mb-4 inline-block'>
+        <button
+          className='text-blue-600 font-semibold text-lg mb-4 inline-block'
+          onClick={() => handleShowDialog("John Doe", "Unit 123")}>
           Tambahkan Pengajar
-        </a>
+        </button>
+
+        {showDialog && (
+          <Tambah
+            name={userInfo.name}
+            unit={userInfo.unit}
+            onSubmit={handleSubmit}
+          />
+        )}
       </div>
 
       <div className='overflow-y-auto h-[50vh]'>
@@ -135,7 +167,7 @@ export default function DataPengajar() {
                   <td className='py-4 px-6 font-medium text-gray-900'>
                     {item.name}
                   </td>
-                  <td className='py-4 px-6'>{'TK SANTA LUSIA SEI ROTAN'}</td>
+                  <td className='py-4 px-6'>{"TK SANTA LUSIA SEI ROTAN"}</td>
                   <td className='py-4 px-6'>
                     <button
                       onClick={() => handleEdit(item)}
@@ -163,7 +195,9 @@ export default function DataPengajar() {
             {error && <p className='text-red-500'>{error}</p>}
             <form onSubmit={handleUpdate}>
               <div className='mb-4'>
-                <label className='block text-sm font-medium text-gray-700'>Nama:</label>
+                <label className='block text-sm font-medium text-gray-700'>
+                  Nama:
+                </label>
                 <input
                   type='text'
                   name='name'
@@ -174,7 +208,9 @@ export default function DataPengajar() {
                 />
               </div>
               <div className='mb-4'>
-                <label className='block text-sm font-medium text-gray-700'>Role:</label>
+                <label className='block text-sm font-medium text-gray-700'>
+                  Role:
+                </label>
                 <select
                   name='role'
                   value={newTeacherData.role}
