@@ -34,18 +34,9 @@ export default function Authentication() {
         confirm_password: ""
     })
     const [LoadingStatus,setLoadingStatus] = useState(false);
-    const { isAuthenticated, user, login, logout, Register } = useContext(AuthContext);
+    const { isAuthenticated, userData, login, logout, Register } = useContext(AuthContext);
     const {toast} = useToast();
 
-    const submitLogin = (e) => {
-        if(inputs.email == "" || inputs.password == "") {
-            console.log("email atau password masih kosong")
-        }
-        
-        clearSubmit();
-    }
-
-    
 
     return(
             <main className="relative  w-screen  mx-auto h-screen overflow-x-hidden">
@@ -67,7 +58,7 @@ export default function Authentication() {
                             <TabsTrigger value="Register">Register</TabsTrigger>
                         </TabsList>
                         <div className="w-full m-auto bg-white rounded-xl p-5">
-                            <TabsContent value="Login" className="transition-all duration-100 "><Login inputs={inputs} setInputs={setInputs} login={login} setLoadStatus={setLoadingStatus} loadingStatus={LoadingStatus} toast={toast} usr={user}/></TabsContent>
+                            <TabsContent value="Login" className="transition-all duration-100 "><Login inputs={inputs} setInputs={setInputs} login={login} setLoadStatus={setLoadingStatus} loadingStatus={LoadingStatus} toast={toast} usr={userData}/></TabsContent>
                             <TabsContent value="Register" className="transition-all duration-100 "><Regis inputs={inputs} setInputs={setInputs} regis={Register} setLoadStatus={setLoadingStatus} loadingStatus={LoadingStatus} toast={toast} /></TabsContent>
                         </div>
                     </Tabs>
@@ -77,18 +68,12 @@ export default function Authentication() {
     )
 }
 
-const clearSubmit = (setInputs) => {
-    setInputs({
-        email:"",
-        password:""
-    })
-}
-
 const Login = ({inputs,setInputs, login, toast, setLoadStatus, loadingStatus,usr}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoadStatus(true);
-        login(inputs).then((resolve) => {
+        login(inputs)
+        .then((resolve) => {
             console.log("resolve " + resolve)
             setLoadStatus(false);
             if(!resolve?.ok){
@@ -103,7 +88,7 @@ const Login = ({inputs,setInputs, login, toast, setLoadStatus, loadingStatus,usr
                 variant:"success",
                 title:"Login berhasil",
 
-                description:`Selamat datang ${usr.user.name}`
+                description:`Selamat datang ${usr.name}`
 
             })
         });
@@ -145,12 +130,15 @@ const Regis = ({inputs, setInputs, regis, setLoadStatus, loadingStatus, toast}) 
         setLoadStatus(true);
         regis(inputs)
             .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
                 setLoadStatus(false);
                 if(!response.ok){
                     toast({
                         variant:"destructive",
-                        title:"Terjadi kesalahan pada server",
-                        description:"terjadi permasalahan pada requestmu"
+                        title:`${response.error}`,
+                        description:`${response.message}`
                     })
                     return;
                 }
@@ -163,7 +151,7 @@ const Regis = ({inputs, setInputs, regis, setLoadStatus, loadingStatus, toast}) 
                 return;
             })
         setTimeout(()=>{
-            window.location.href = "/Authentication"
+            // window.location.href = "/Authentication"
         },10000)
     }
 
