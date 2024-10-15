@@ -10,17 +10,52 @@ export function  AuthProvider({children}) {
     const [userData, setUserData] = useState(null);
     const [authMessage, setAuthMessage] = useState(null);
     const router = useRouter();
-    const [tokens, setTokens] = useState(null);
+    const [token, setToken] = useState(null);
 
     useEffect(() => {
-        const token = Cookies.get("token");
+        const token = sessionStorage.getItem("token");
         if(!token) {
-            router.push('Authentication')
-        } else {
-            setTokens(token);
-            router.push("/admin-pages");
+            router.push("/Authentication")
+            return
         }
+        router.push("/admin-pages");
+        return
     },[])
+
+    const Register = async(credentials) => {
+        if(!credentials){
+            setAuthMessage("Harap masukkan credential");
+            return;
+        }
+        if(credentials.password != credentials.confirm_password){
+            setAuthMessage("password dengan konfirmasi password berbeda");
+            return;
+        }
+        try{
+
+            const Reg = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/register`,{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    "name" : `${credentials.firstName} ${credentials.lastName}`,
+                    "role": credentials?.role ? credentials.role : process.env.NEXT_PUBLIC_ROLE_USER,
+                    "phone_number": credentials.phone_number,
+                    "second_phone_number" : credentials.second_phone_number,
+                    "email":credentials.email,
+                    "password":credentials.password,
+                    "address":credentials.address
+                })
+
+            })
+            let reg = await Reg.json();
+            return reg;
+        }catch(e){
+            setAuthMessage(e);
+            console.error(e);
+        }
+    }
 
     const Register = async(credentials) => {
         if(!credentials){
@@ -47,8 +82,7 @@ export function  AuthProvider({children}) {
                     "address":credentials.address
                 })
             })
-            let reg = await Reg.json();
-            return reg;
+            return Reg;
         }catch(e){
             setAuthMessage(e);
             console.error(e);
@@ -57,7 +91,7 @@ export function  AuthProvider({children}) {
 
     const login = async (credentials) => {
         console.log(credentials)
-        console.log(tokens)
+
         if(!credentials){
             setAuthMessage("Harap masukkan credential")
             return;
@@ -68,10 +102,12 @@ export function  AuthProvider({children}) {
         }
 
         try{
-            const Login = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login/`,{
+
+            const Login = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login`,{
                 headers:{
                     "Content-Type":"application/json",
-                     "Authorization": `Bearer ${tokens}`
+                    "Authorization" : `bearer ${token}`
+
                 },
                 method:"POST",
                 body:JSON.stringify({
@@ -79,10 +115,13 @@ export function  AuthProvider({children}) {
                     "password" : credentials.password
                 })
             })
-            const dat = await Login.json()
-            setAuthMessage("Login Berhasil")
-            setUserData(dat);
-            Cookies.set("token",dat.token);
+            if(Login.ok){
+                const dat = await Login.json()
+                setAuthMessage("Login Berhasil")
+                setUserData(dat.user);
+                sessionStorage.setItem("token",dat.token);
+                setIsAuthenticated(true);
+            }
             return Login;
         }catch(e){
             setAuthMessage(e);

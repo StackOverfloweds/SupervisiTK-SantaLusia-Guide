@@ -1,8 +1,8 @@
 "use client"
 import Image from "next/image"
-import logo from "@/img/logo.png"
+import logo from "../../img/logo.png"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../components/ui/button"
 import { usePathname } from "next/navigation"
 import { IoMenu } from "react-icons/io5";
 import {
@@ -14,7 +14,7 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-  } from "@/components/ui/sheet"
+  } from "../../components/ui/sheet"
 
   
 

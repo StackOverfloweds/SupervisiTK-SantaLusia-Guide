@@ -37,15 +37,6 @@ export default function Authentication() {
     const { isAuthenticated, userData, login, logout, Register } = useContext(AuthContext);
     const {toast} = useToast();
 
-    const submitLogin = (e) => {
-        if(inputs.email == "" || inputs.password == "") {
-            console.log("email atau password masih kosong")
-        }
-        
-        clearSubmit();
-    }
-
-    
 
     return(
             <main className="relative  w-screen  mx-auto h-screen overflow-x-hidden">
@@ -77,18 +68,12 @@ export default function Authentication() {
     )
 }
 
-const clearSubmit = (setInputs) => {
-    setInputs({
-        email:"",
-        password:""
-    })
-}
-
 const Login = ({inputs,setInputs, login, toast, setLoadStatus, loadingStatus,usr}) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setLoadStatus(true);
-        login(inputs).then((resolve) => {
+        login(inputs)
+        .then((resolve) => {
             console.log("resolve " + resolve)
             setLoadStatus(false);
             if(!resolve?.ok){
@@ -102,7 +87,9 @@ const Login = ({inputs,setInputs, login, toast, setLoadStatus, loadingStatus,usr
             toast({
                 variant:"success",
                 title:"Login berhasil",
-                description:`Selamat datang`
+
+                description:`Selamat datang ${usr.name}`
+
             })
         });
     }
@@ -110,7 +97,9 @@ const Login = ({inputs,setInputs, login, toast, setLoadStatus, loadingStatus,usr
         <form className="" onSubmit={(e) => handleSubmit(e)} method="POST">
             <h1 className="font-poppinsBold text-center text-2xl md:text-3xl">Selamat Datang!!</h1>
             <p className="font-poppins text-center text-md pb-5 text-pretty text-md md:text-sm w-[300px] md:w-[250px] mx-auto">masuk untuk mulai menjelajahi website kami</p>
+
             <label className="block text-poppins text-md" htmlFor="nama">Name</label>
+
             <input type="text" placeholder="Nama" autoComplete="username" name="nama" className="block w-full text-lg border-2 px-3 py-1 my-2 focus:border-black rounded-md focus:bg-blue-100" onChange={(e) => {
                 setInputs({
                     ...inputs,
@@ -141,12 +130,15 @@ const Regis = ({inputs, setInputs, regis, setLoadStatus, loadingStatus, toast}) 
         setLoadStatus(true);
         regis(inputs)
             .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
                 setLoadStatus(false);
                 if(!response.ok){
                     toast({
                         variant:"destructive",
-                        title:"Terjadi kesalahan pada server",
-                        description:"terjadi permasalahan pada requestmu"
+                        title:`${response.error}`,
+                        description:`${response.message}`
                     })
                     return;
                 }
@@ -159,7 +151,7 @@ const Regis = ({inputs, setInputs, regis, setLoadStatus, loadingStatus, toast}) 
                 return;
             })
         setTimeout(()=>{
-            window.location.href = "/Authentication"
+            // window.location.href = "/Authentication"
         },10000)
     }
 
