@@ -5,53 +5,6 @@ import Cookies from "js-cookie";
 
 const AuthContext = createContext();
 
-
-export function AuthProvider({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userData, setUserData] = useState(null);
-  const [authMessage, setAuthMessage] = useState(null);
-  const router = useRouter();
-  const [tokens, setTokens] = useState(null);
-
-  useEffect(() => {
-    const token = Cookies.get("token");
-    if (!token) {
-      router.push("Authentication");
-    } else {
-      setTokens(token);
-      router.push("/admin-pages");
-    }
-  }, []);
-
-  const Register = async (credentials) => {
-    if (!credentials) {
-      setAuthMessage("Harap masukkan credential");
-      return;
-    }
-    if (credentials.password != credentials.confirm_password) {
-      setAuthMessage("password dengan konfirmasi password berbeda");
-      return;
-    }
-    try {
-      const Reg = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: `${credentials.firstName} ${credentials.lastName}`,
-            role: credentials?.role
-              ? credentials.role
-              : process.env.NEXT_PUBLIC_ROLE_USER,
-            phone_number: credentials.phone_number,
-            second_phone_number: credentials.second_phone_number,
-            email: credentials.email,
-            password: credentials.password,
-            address: credentials.address,
-          }),
-
 export function  AuthProvider({children}) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userData, setUserData] = useState(null);
@@ -65,18 +18,20 @@ export function  AuthProvider({children}) {
             router.push("/Authentication")
             return;
         }
-        const valDat = ValidateToken(token);
-        if(!valDat.token_valid){
-            sessionStorage.removeItem("token")
-            router.refresh();
-            return;
-        }
-        router.push("/admin-pages");
-    },[])
+        ValidateToken(token).then((resolve) => {
+            if(!resolve.token_valid){
+                sessionStorage.removeItem("token")
+                router.refresh();
+                return;
+            }
+            setUserData(resolve);
+            router.push("/admin-pages");
+        });
+    },[token])
 
     const ValidateToken = async (token) => {
         try{
-            const validate = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/validat-token/${token}`,{
+            const validate = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/validate-token/${token}`,{
              method:"GET",
              headers:{
                 "Content-Type" : "application/json"
@@ -122,44 +77,21 @@ export function  AuthProvider({children}) {
         }catch(e){
             setAuthMessage(e);
             console.error(e);
-
         }
-      );
-      let reg = await Reg.json();
-      return reg;
-    } catch (e) {
-      setAuthMessage(e);
-      console.error(e);
+    };
+
+
+
+  const login = async (credentials) => {
+    if(!credentials){
+        setAuthMessage("Harap masukkan credential")
+        return;
     }
-  };
-
-
-
-    const login = async (credentials) => {
-        console.log(credentials)
-
-        if(!credentials){
-            setAuthMessage("Harap masukkan credential")
-            return;
-        }
-        if(credentials.email == " " || credentials.password == " "){
-            setAuthMessage("email atau password masih kosong")
-            return;
-        }
-
-
-    console.log(tokens);
-
-    if (!credentials) {
-      setAuthMessage("Harap masukkan credential");
-      return;
+    if(credentials.email == " " || credentials.password == " "){
+        setAuthMessage("email atau password masih kosong")
+        return;
     }
-    if (credentials.email == " " || credentials.password == " ") {
-      setAuthMessage("email atau password masih kosong");
-      return;
-    }
-
-
+      
     try {
       const Login = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login/`,
@@ -167,78 +99,54 @@ export function  AuthProvider({children}) {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${tokens}`,
-          },
-          method: "POST",
-          body: JSON.stringify({
-            name: credentials.firstName,
-            password: credentials.password,
-          }),
-
-                },
-                method:"POST",
-                body:JSON.stringify({
-                    "name": credentials.firstName,
-                    "password" : credentials.password
-                })
-            })
-            const dat = await Login.json()
-            console.log(Login)
-            if(Login.ok){
-                setAuthMessage("Login Berhasil")
-                setUserData(dat);
-                sessionStorage.setItem("token",dat.token);
-                setIsAuthenticated(true);
-                return dat;
-            }
+           },
+          method:"POST",
+          body:JSON.stringify({
+            "name": credentials.firstName,
+            "password" : credentials.password
+             })
+         });
+        const dat = await Login.json()
+        if(Login.ok){
+            setAuthMessage("Login Berhasil")
+            setUserData(dat);
+            sessionStorage.setItem("token",dat.token);
+            setToken(dat.token);
+            setIsAuthenticated(true);
             return dat;
-        }catch(e){
-            setAuthMessage(e);
-            console.log(e)
-            return;
-
         }
-      );
-      const dat = await Login.json();
-      setAuthMessage("Login Berhasil");
-      setUserData(dat.user);
-      Cookies.set("token", dat.token);
-      return Login;
-    } catch (e) {
-      setAuthMessage(e);
-      console.log(e);
-      return;
-    }
+        return dat;
+     }catch(e){
+       setAuthMessage(e);
+       console.log(e)
+       return;
+     }
   };
 
-  const logout = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/logout`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${Cookies.get("token")}`,
-          },
+    const logout = async () => {
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/logout`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${sessionStorage.getItem("token")}`
+                },
+            });
+    
+            if (!response.ok) {
+                throw new Error('Logout failed');
+            }
+            const data = await response.json();
+            // Remove the token and reset state
+            sessionStorage.removeItem("token");
+            setAuthMessage(null);
+            setIsAuthenticated(false);
+            setUserData(null);
+        } catch (error) {
+            console.error('Logout error:', error); 
         }
-      );
-
-      if (!response.ok) {
-        throw new Error("Logout failed");
-      }
-      const data = await response.json();
-      console.log(data.message);
-
-      // Remove the token and reset state
-      Cookies.remove("token");
-      setAuthMessage(null);
-      setIsAuthenticated(false);
-      setUserData(null);
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
-  };
-
+    };   
+  
   return (
     <AuthContext.Provider
       value={{
