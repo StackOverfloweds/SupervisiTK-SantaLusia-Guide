@@ -10,16 +10,16 @@ export function  AuthProvider({children}) {
     const [userData, setUserData] = useState(null);
     const [authMessage, setAuthMessage] = useState(null);
     const router = useRouter();
-    const [tokens, setTokens] = useState(null);
+    const [token, setToken] = useState(null);
 
     useEffect(() => {
-        const token = Cookies.get("token");
+        const token = sessionStorage.getItem("token");
         if(!token) {
-            router.push('Authentication')
-        } else {
-            setTokens(token);
-            router.push("/admin-pages");
+            router.push("/Authentication")
+            return
         }
+        router.push("/admin-pages");
+        return
     },[])
 
     const Register = async(credentials) => {
@@ -82,8 +82,7 @@ export function  AuthProvider({children}) {
                     "address":credentials.address
                 })
             })
-            let reg = await Reg.json();
-            return reg;
+            return Reg;
         }catch(e){
             setAuthMessage(e);
             console.error(e);
@@ -92,8 +91,6 @@ export function  AuthProvider({children}) {
 
     const login = async (credentials) => {
         console.log(credentials)
-
-        console.log(tokens)
 
         if(!credentials){
             setAuthMessage("Harap masukkan credential")
@@ -106,10 +103,10 @@ export function  AuthProvider({children}) {
 
         try{
 
-            const Login = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login/`,{
+            const Login = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login`,{
                 headers:{
                     "Content-Type":"application/json",
-                     "Authorization": `Bearer ${tokens}`
+                    "Authorization" : `bearer ${token}`
 
                 },
                 method:"POST",
@@ -118,10 +115,13 @@ export function  AuthProvider({children}) {
                     "password" : credentials.password
                 })
             })
-            const dat = await Login.json()
-            setAuthMessage("Login Berhasil")
-            setUserData(dat.user);
-            Cookies.set("token",dat.token);
+            if(Login.ok){
+                const dat = await Login.json()
+                setAuthMessage("Login Berhasil")
+                setUserData(dat.user);
+                sessionStorage.setItem("token",dat.token);
+                setIsAuthenticated(true);
+            }
             return Login;
         }catch(e){
             setAuthMessage(e);
