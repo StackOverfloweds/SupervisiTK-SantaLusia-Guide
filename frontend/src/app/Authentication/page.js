@@ -36,7 +36,7 @@ export default function Authentication() {
     const [LoadingStatus,setLoadingStatus] = useState(false);
     const { isAuthenticated, userData, login, logout, Register } = useContext(AuthContext);
     const {toast} = useToast();
-   
+
 
     return(
             <main className="relative  w-screen  mx-auto h-screen overflow-x-hidden">
@@ -95,7 +95,7 @@ const Login = ({inputs,setInputs, login, toast, setLoadStatus, loadingStatus,usr
         <form className="" onSubmit={(e) => handleSubmit(e)} method="POST">
             <h1 className="font-poppinsBold text-center text-2xl md:text-3xl">Selamat Datang!!</h1>
             <p className="font-poppins text-center text-md pb-5 text-pretty text-md md:text-sm w-[300px] md:w-[250px] mx-auto">masuk untuk mulai menjelajahi website kami</p>
-            <label className="block text-poppins text-md" htmlFor="nama">Email</label>
+            <label className="block text-poppins text-md" htmlFor="nama">Name</label>
             <input type="text" placeholder="Nama" autoComplete="username" name="nama" className="block w-full text-lg border-2 px-3 py-1 my-2 focus:border-black rounded-md focus:bg-blue-100" onChange={(e) => {
                 setInputs({
                     ...inputs,

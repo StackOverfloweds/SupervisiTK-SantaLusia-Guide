@@ -22,7 +22,6 @@ export function  AuthProvider({children}) {
         return
     },[])
 
-    
     const Register = async(credentials) => {
         if(!credentials){
             setAuthMessage("Harap masukkan credential");
@@ -93,12 +92,34 @@ export function  AuthProvider({children}) {
         }
     }
 
-    const logout = () => {
-        Cookies.remove("token")
-        setAuthMessage(null);
-        setIsAuthenticated(false);
-        setUserData(null);
-    }
+    const logout = async () => {
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/logout`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${Cookies.get("token")}`
+                },
+            });
+    
+            if (!response.ok) {
+                throw new Error('Logout failed');
+            }
+            const data = await response.json();
+            console.log(data.message);
+    
+            // Remove the token and reset state
+            Cookies.remove("token");
+            setAuthMessage(null);
+            setIsAuthenticated(false);
+            setUserData(null);
+        } catch (error) {
+            console.error('Logout error:', error); 
+        }
+    };
+    
+
+    
 
     return(
         <AuthContext.Provider value={{ isAuthenticated, userData, authMessage, login, logout, Register }}>

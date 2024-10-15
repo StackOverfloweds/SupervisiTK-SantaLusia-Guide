@@ -128,6 +128,7 @@ export default function Dashboard() {
               </tr>
             </thead>
             <tbody className='block md:table-row-group'>
+
               {currentTeachers.map((teacher, index) => (
                 <tr
                   key={teacher.id}
