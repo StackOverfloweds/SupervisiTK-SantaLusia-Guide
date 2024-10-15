@@ -1,6 +1,4 @@
 "use client";
-import { useState ,useEffect} from "react";
-import axios from "axios";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,28 +16,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "../../components/ui/select";
 import { useEffect, useState } from "react"; // Import useEffect and useState
 import { Router } from "next/router";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 export default function Pengumpulan() {
-<<<<<<< HEAD
-  const [teachers, setTeachers] = useState([]);
-
-  useEffect(() => {
-    const fetchTeachers = async () => {
-      try {
-        const response = await axios.get("/api/teachers"); // Ganti dengan endpoint API Anda
-        setTeachers(response.data);
-      } catch (error) {
-        console.error("Error fetching teachers:", error);
-      }
-    };
-
-    fetchTeachers();
-  }, []);
-
-=======
   const [users, setUsers] = useState([]); // State to hold users
   const [selectedUserId, setSelectedUserId] = useState(null); // State to hold selected user ID
   const [selectedFile, setSelectedFile] = useState(null); // State to hold selected file
@@ -51,7 +32,9 @@ export default function Pengumpulan() {
     // Fetch users from the backend
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/prof-user`); // Adjust the API endpoint as necessary
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/prof-user`
+        ); // Adjust the API endpoint as necessary
         const data = await response.json();
         setUsers(data);
       } catch (error) {
@@ -77,10 +60,13 @@ export default function Pengumpulan() {
 
     setLoading(true); // Set loading to true when the upload starts
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/rph/upload`, {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API}/api/rph/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Error uploading file.");
@@ -96,7 +82,6 @@ export default function Pengumpulan() {
     }
   };
 
->>>>>>> refs/remotes/origin/9-developtment-code-admin
   return (
     <div className='p-8'>
       {/* Header */}
@@ -112,16 +97,6 @@ export default function Pengumpulan() {
             htmlFor='namaGuru'>
             Nama Guru :
           </label>
-<<<<<<< HEAD
-          <Select>
-            <SelectTrigger className='w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-200 '>
-              <SelectValue placeholder='Nama Guru' />
-            </SelectTrigger>
-            <SelectContent>
-              {teachers.map((teacher) => (
-                <SelectItem key={teacher.id} value={teacher.id}>
-                  {teacher.name}
-=======
           <Select onValueChange={setSelectedUserId}>
             <SelectTrigger className='w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-200 '>
               <SelectValue placeholder='Pilih Nama Guru' />
@@ -130,7 +105,6 @@ export default function Pengumpulan() {
               {users.map((user) => (
                 <SelectItem key={user.user_id} value={user.user_id}>
                   {user.name}
->>>>>>> refs/remotes/origin/9-developtment-code-admin
                 </SelectItem>
               ))}
             </SelectContent>
@@ -210,16 +184,14 @@ export default function Pengumpulan() {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-<<<<<<< HEAD
-          <div className='fixed bottom-0 right-0 w-[100rem] h-[5rem] bg-white drop-shadow-xl z-50'>
-=======
+
           {loading && (
-            <div className="flex justify-center items-center mt-4">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div> {/* Spinner */}
+            <div className='flex justify-center items-center mt-4'>
+              <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600'></div>{" "}
+              {/* Spinner */}
             </div>
           )}
-          <div className="fixed bottom-0 right-0 w-[100rem] h-[5rem] bg-white drop-shadow-xl z-50">
->>>>>>> refs/remotes/origin/9-developtment-code-admin
+          <div className='fixed bottom-0 right-0 w-[100rem] h-[5rem] bg-white drop-shadow-xl z-50'>
             <footer className='fixed bottom-0 text-gray-500 text-sm py-7 items-center justify-center w-full '>
               <p>
                 Copyright © Supervisi

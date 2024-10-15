@@ -2,25 +2,25 @@
 import { useState,useContext } from "react";
 import {useRouter} from "next/navigation"
 import Image from "next/image";
-import {Button} from "@/components/ui/button";
-import Pembelajaran1 from "@/img/pembelajaran1.jpg"
-import NavbarUser from "@/components/ui/NavbarUser";
+import {Button} from "../../components/ui/button";
+import Pembelajaran1 from "../../img/pembelajaran1.jpg"
+import NavbarUser from "../../components/ui/NavbarUser";
 import { ReloadIcon } from "@radix-ui/react-icons"
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "../../components/ui/toaster"
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-  } from "@/components/ui/popover"
+  } from "../../components/ui/popover"
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/tabs"
+} from "../../components/ui/tabs"
 
-import AuthContext from "@/lib/Context/AuthProvider";
-import { useToast } from "@/hooks/use-toast";
+import AuthContext from "../../lib/Context/AuthProvider";
+import { useToast } from "../../hooks/use-toast";
 
 export default function Authentication() {
     const [inputs, setInputs] = useState({
