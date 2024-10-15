@@ -18,18 +18,21 @@ export function  AuthProvider({children}) {
             router.push("/Authentication")
             return;
         }
-        const valDat = ValidateToken(token);
-        if(!valDat.token_valid){
-            sessionStorage.removeItem("token")
-            router.refresh();
-            return;
-        }
-        router.push("/admin-pages");
-    },[])
+        ValidateToken(token).then((resolve) => {
+            console.log(resolve);
+            if(!resolve.token_valid){
+                sessionStorage.removeItem("token")
+                router.refresh();
+                return;
+            }
+            setUserData(resolve);
+            router.push("/admin-pages");
+        });
+    },[token])
 
     const ValidateToken = async (token) => {
         try{
-            const validate = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/validat-token/${token}`,{
+            const validate = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/validate-token/${token}`,{
              method:"GET",
              headers:{
                 "Content-Type" : "application/json"
@@ -78,37 +81,6 @@ export function  AuthProvider({children}) {
         }
     }
 
-    const Register = async(credentials) => {
-        if(!credentials){
-            setAuthMessage("Harap masukkan credential");
-            return;
-        }
-        if(credentials.password != credentials.confirm_password){
-            setAuthMessage("password dengan konfirmasi password berbeda");
-            return;
-        }
-        try{
-            const Reg = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/register`,{
-                method:"POST",
-                headers:{
-                    "Content-Type":"application/json"
-                },
-                body:JSON.stringify({
-                    "name" : `${credentials.firstName} ${credentials.lastName}`,
-                    "role": credentials?.role ? credentials.role : process.env.NEXT_PUBLIC_ROLE_USER,
-                    "phone_number": credentials.phone_number,
-                    "second_phone_number" : credentials.second_phone_number,
-                    "email":credentials.email,
-                    "password":credentials.password,
-                    "address":credentials.address
-                })
-            })
-            return Reg;
-        }catch(e){
-            setAuthMessage(e);
-            console.error(e);
-        }
-    }
 
     const login = async (credentials) => {
         console.log(credentials)
@@ -142,6 +114,7 @@ export function  AuthProvider({children}) {
                 setAuthMessage("Login Berhasil")
                 setUserData(dat);
                 sessionStorage.setItem("token",dat.token);
+                setToken(dat.token);
                 setIsAuthenticated(true);
                 return dat;
             }
@@ -177,10 +150,7 @@ export function  AuthProvider({children}) {
         } catch (error) {
             console.error('Logout error:', error); 
         }
-    };
-    
-
-    
+    };    
 
     return(
         <AuthContext.Provider value={{ isAuthenticated, userData, authMessage, login, logout, Register }}>
