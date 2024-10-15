@@ -3900,6 +3900,7 @@
             "time": "2024-04-27T21:32:50+00:00"
         },
         {
+
             "name": "spatie/laravel-package-tools",
             "version": "1.16.5",
             "source": {
@@ -3923,11 +3924,14 @@
                 "pestphp/pest": "^1.22",
                 "phpunit/phpunit": "^9.5.24",
                 "spatie/pest-plugin-test-time": "^1.1"
+
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
+
                     "Spatie\\LaravelPackageTools\\": "src"
+
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3936,6 +3940,7 @@
             ],
             "authors": [
                 {
+
                     "name": "Freek Van der Herten",
                     "email": "freek@spatie.be",
                     "role": "Developer"
@@ -3958,6 +3963,7 @@
                 }
             ],
             "time": "2024-08-27T18:56:10+00:00"
+
         },
         {
             "name": "symfony/clock",
@@ -8761,5 +8767,7 @@
         "php": "^8.2"
     },
     "platform-dev": [],
+
     "plugin-api-version": "2.2.0"
 }
+
