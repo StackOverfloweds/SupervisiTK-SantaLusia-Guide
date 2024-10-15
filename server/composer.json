@@ -9,7 +9,8 @@
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
-        "tymon/jwt-auth": "^2.1"
+        "tymon/jwt-auth": "^2.1",
+        "yaza/laravel-google-drive-storage": "^3.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('user_id');
             $table->enum('file_type', ['RPH', 'Video Pembelajaran']); // Tipe file
             $table->string('file_path'); // Lokasi file yang diunggah
+            $table->string('description');
             $table->timestamps();
 
             $table->foreign('user_id')
