@@ -15,7 +15,7 @@ class AnnouncementController extends Controller
     public function store (Request $request)
     {
         $request->validate([
-            'content' => 'required|string|max:255',
+            'content' => 'required|string|min:10',
         ]);
 
         // save the file
