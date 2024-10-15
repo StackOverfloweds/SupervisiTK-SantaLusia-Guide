@@ -16,11 +16,32 @@ export function  AuthProvider({children}) {
         const token = sessionStorage.getItem("token");
         if(!token) {
             router.push("/Authentication")
-            return
+            return;
+        }
+        const valDat = ValidateToken(token);
+        if(!valDat.token_valid){
+            sessionStorage.removeItem("token")
+            router.refresh();
+            return;
         }
         router.push("/admin-pages");
-        return
     },[])
+
+    const ValidateToken = async (token) => {
+        try{
+            const validate = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/validat-token/${token}`,{
+             method:"GET",
+             headers:{
+                "Content-Type" : "application/json"
+             }
+            })
+            const val = await validate.json();
+            return val;
+        }catch(e){
+            console.log("error pada saat validasi token : ",e);
+        }
+
+    }
 
     const Register = async(credentials) => {
         if(!credentials){
@@ -115,14 +136,16 @@ export function  AuthProvider({children}) {
                     "password" : credentials.password
                 })
             })
+            const dat = await Login.json()
+            console.log(Login)
             if(Login.ok){
-                const dat = await Login.json()
                 setAuthMessage("Login Berhasil")
-                setUserData(dat.user);
+                setUserData(dat);
                 sessionStorage.setItem("token",dat.token);
                 setIsAuthenticated(true);
+                return dat;
             }
-            return Login;
+            return dat;
         }catch(e){
             setAuthMessage(e);
             console.log(e)
