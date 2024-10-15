@@ -81,7 +81,7 @@ export function  AuthProvider({children}) {
             })
             const dat = await Login.json()
             setAuthMessage("Login Berhasil")
-            setUserData(dat.user);
+            setUserData(dat);
             Cookies.set("token",dat.token);
             return Login;
         }catch(e){
