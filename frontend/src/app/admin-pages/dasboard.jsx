@@ -108,8 +108,8 @@ export default function Dashboard() {
             Halaman Pengumpulan Guru
           </strong>
         </div>
-
         <div className=''>
+
           <table className='min-w-full border-collapse block md:table'>
             <thead className='block md:table-header-group'>
               <tr className='border border-gray-300 md:border-none block md:table-row'>
