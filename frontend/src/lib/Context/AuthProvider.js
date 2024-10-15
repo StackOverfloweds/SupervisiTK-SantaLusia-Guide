@@ -83,8 +83,6 @@ export function  AuthProvider({children}) {
 
 
     const login = async (credentials) => {
-        console.log(credentials)
-
         if(!credentials){
             setAuthMessage("Harap masukkan credential")
             return;
@@ -109,7 +107,6 @@ export function  AuthProvider({children}) {
                 })
             })
             const dat = await Login.json()
-            console.log(Login)
             if(Login.ok){
                 setAuthMessage("Login Berhasil")
                 setUserData(dat);
@@ -132,7 +129,7 @@ export function  AuthProvider({children}) {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${Cookies.get("token")}`
+                    'Authorization': `Bearer ${sessionStorage.getItem("token")}`
                 },
             });
     
@@ -143,7 +140,7 @@ export function  AuthProvider({children}) {
             console.log(data.message);
     
             // Remove the token and reset state
-            Cookies.remove("token");
+            sessionStorage.removeItem("token");
             setAuthMessage(null);
             setIsAuthenticated(false);
             setUserData(null);
