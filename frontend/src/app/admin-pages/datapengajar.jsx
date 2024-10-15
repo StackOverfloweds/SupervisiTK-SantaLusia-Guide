@@ -1,24 +1,30 @@
-"use client";
+
 import React, { useEffect, useState } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "../../components/ui/scroll-area";
+import { Tambah } from "../../app/admin-pages/component-admin/tambah-pengajar";
 
 export default function DataPengajar() {
   const [pengajar, setPengajar] = useState([]);
   const [editingTeacher, setEditingTeacher] = useState(null);
+  const [isAddTeacherModalOpen, setIsAddTeacherModalOpen] = useState(false);
   const [newTeacherData, setNewTeacherData] = useState({
     name: "",
     role: "",
     email: "",
     phone_number: "",
     second_phone_number: "",
-    address: ""
+    address: "",
   });
   const [error, setError] = useState(null);
-  
+  const [showDialog, setShowDialog] = useState(false);
+  const [userInfo, setUserInfo] = useState({ name: "", unit: "" });
+
   useEffect(() => {
     const fetchPengajar = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/prof-user`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/prof-user`
+        );
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -35,9 +41,12 @@ export default function DataPengajar() {
   // Function to handle teacher deletion
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/delete/${id}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/delete/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to delete teacher");
@@ -55,7 +64,12 @@ export default function DataPengajar() {
     setNewTeacherData({
       name: teacher.name,
       role: teacher.role,
+      email:teacher.email,
+      phone_number:teacher.phone_number,
+      second_phone_number:teacher.second_phone_number,
+      address:teacher.address
     });
+
   };
 
   // Function to handle form input changes
@@ -65,48 +79,142 @@ export default function DataPengajar() {
   };
 
   // Function to handle updating teacher
-  const handleUpdate = async (e) => {
+const handleUpdate = async (e) => {
+  e.preventDefault();
+  try {
+    // Use editingTeacher.user_id to identify the teacher for updating
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/update/${editingTeacher.user_id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },  
+      body: JSON.stringify(newTeacherData),
+    });
+    console.log(response)
+    const updatedTeacher = await response.json();
+    console.log(updatedTeacher);
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to update teacher");
+    }
+
+    // const updatedTeacher = await response.json();
+    // console.log(updatedTeacher);
+
+    // Update the pengajar state with the updated teacher details
+    setPengajar((prev) =>
+      prev.map((item) => (item.user_id === updatedTeacher.user_id ? updatedTeacher : item))
+    );
+
+    // Reset editing state
+    setEditingTeacher(null);
+    setNewTeacherData({
+      name: "",
+      role: "",
+      email: "",
+      phone_number: "",
+      second_phone_number: "",
+      address: "",
+    });
+  } catch (error) {
+    console.error("Error updating teacher:", error);
+    setError(error.message); // Capture error for user feedback
+  }
+};
+
+  // Function to handle adding a new teacher
+  const handleAddTeacher = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/update/${editingTeacher.user_id}`, {
-        method: 'PUT',
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/update/${editingTeacher.user_id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newTeacherData),
+        }
+      );
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/register`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(newTeacherData),
       });
 
+
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to update teacher");
+        throw new Error(errorData.message || "Failed to add teacher");
       }
+
 
       const updatedTeacher = await response.json();
       setPengajar((prev) =>
-        prev.map((item) => (item.user_id === updatedTeacher.user_id ? updatedTeacher : item))
+        prev.map((item) =>
+          item.user_id === updatedTeacher.user_id ? updatedTeacher : item
+        )
       );
 
-      // Reset editing state
-      setEditingTeacher(null);
+      const addedTeacher = await response.json();
+      setPengajar([...pengajar, addedTeacher]); // Add new teacher to the list
+
+
+      // Close modal and reset form
+      setIsAddTeacherModalOpen(false);
       setNewTeacherData({
         name: "",
         role: "",
+        email: "",
+        phone_number: "",
+        second_phone_number: "",
+        address: ""
       });
     } catch (error) {
-      console.error("Error updating teacher:", error);
-      setError(error.message); // Capture error for user feedback
+      console.error("Error adding teacher:", error);
+      setError(error.message);
     }
+  };
+  const handleShowDialog = (name, unit) => {
+    setUserInfo({ name, unit });
+    setShowDialog(true);
+  };
+  const handleSubmit = (confirm) => {
+    if (confirm) {
+      // Handle the submit action here
+      console.log("Submitted:", userInfo);
+    }
+    setShowDialog(false);
   };
 
   return (
     <div className='fixed p-6 mt-0 '>
       <div className='flex flex-col text-center items-center justify-center'>
         <h1 className='text-3xl font-bold mb-4'>Data Pengajar</h1>
-        <a
-          href='#'
+        <button
+
+          className='text-blue-600 font-semibold text-lg mb-4 inline-block'
+          onClick={() => handleShowDialog("John Doe", "Unit 123")}>
+          Tambahkan Pengajar
+        </button>
+
+        {showDialog && (
+          <Tambah
+            name={userInfo.name}
+            unit={userInfo.unit}
+            onSubmit={handleSubmit}
+          />
+        )}
+
+          onClick={() => setIsAddTeacherModalOpen(true)}
           className='text-blue-600 font-semibold text-lg mb-4 inline-block'>
           Tambahkan Pengajar
-        </a>
+        </button>
+
       </div>
 
       <div className='overflow-y-auto h-[50vh]'>
@@ -135,7 +243,7 @@ export default function DataPengajar() {
                   <td className='py-4 px-6 font-medium text-gray-900'>
                     {item.name}
                   </td>
-                  <td className='py-4 px-6'>{'TK SANTA LUSIA SEI ROTAN'}</td>
+                  <td className='py-4 px-6'>{"TK SANTA LUSIA SEI ROTAN"}</td>
                   <td className='py-4 px-6'>
                     <button
                       onClick={() => handleEdit(item)}
@@ -155,15 +263,127 @@ export default function DataPengajar() {
         </ScrollArea>
       </div>
 
+     {/* Add Teacher Modal */}
+    {isAddTeacherModalOpen && (
+      <div className='fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50'>
+        <div className='bg-white p-6 rounded-md shadow-md'>
+          <h2 className='text-xl font-semibold mb-4'>Tambah Pengajar</h2>
+          {error && <p className='text-red-500'>{error}</p>}
+          <form onSubmit={handleAddTeacher}>
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700'>Nama:</label>
+              <input
+                type='text'
+                name='name'
+                value={newTeacherData.name}
+                onChange={handleChange}
+                required
+                className='mt-1 p-2 border border-gray-300 rounded-md w-full'
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700'>Password:</label>
+              <input
+                type='password'
+                name='password'
+                value={newTeacherData.password}
+                onChange={handleChange}
+                required
+                className='mt-1 p-2 border border-gray-300 rounded-md w-full'
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700'>Email:</label>
+              <input
+                type='email'
+                name='email'
+                value={newTeacherData.email}
+                onChange={handleChange}
+                required
+                className='mt-1 p-2 border border-gray-300 rounded-md w-full'
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700'>Nomor Telepon:</label>
+              <input
+                type='text'
+                name='phone_number'
+                value={newTeacherData.phone_number}
+                onChange={handleChange}
+                required
+                className='mt-1 p-2 border border-gray-300 rounded-md w-full'
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700'>Nomor Telepon Kedua (Opsional):</label>
+              <input
+                type='text'
+                name='second_phone_number'
+                value={newTeacherData.second_phone_number}
+                onChange={handleChange}
+                className='mt-1 p-2 border border-gray-300 rounded-md w-full'
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700'>Alamat (Opsional):</label>
+              <input
+                type='text'
+                name='address'
+                value={newTeacherData.address}
+                onChange={handleChange}
+                className='mt-1 p-2 border border-gray-300 rounded-md w-full'
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700'>Role:</label>
+              <select
+                name='role'
+                value={newTeacherData.role}
+                onChange={handleChange}
+                required
+                className='mt-1 p-2 border border-gray-300 rounded-md w-full'>
+                <option value=''>Pilih Role</option>
+                <option value='guru'>Guru</option> 
+              </select>
+            </div>
+
+            <div className='flex justify-end'>
+              <button
+                type='button'
+                onClick={() => setIsAddTeacherModalOpen(false)} // Close modal
+                className='bg-gray-300 text-gray-800 px-4 py-2 rounded-md mr-2'>
+                Batal
+              </button>
+              <button
+                type='submit'
+                className='bg-blue-500 text-white px-4 py-2 rounded-md'>
+                Tambahkan
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    )}
+
+
       {/* Edit Teacher Modal */}
       {editingTeacher && (
         <div className='fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50'>
+
           <div className='bg-white p-6 rounded-md shadow-md'>
             <h2 className='text-xl font-semibold mb-4'>Edit Pengajar</h2>
             {error && <p className='text-red-500'>{error}</p>}
             <form onSubmit={handleUpdate}>
               <div className='mb-4'>
-                <label className='block text-sm font-medium text-gray-700'>Nama:</label>
+                <label className='block text-sm font-medium text-gray-700'>
+                  Nama:
+                </label>
                 <input
                   type='text'
                   name='name'
@@ -174,7 +394,9 @@ export default function DataPengajar() {
                 />
               </div>
               <div className='mb-4'>
-                <label className='block text-sm font-medium text-gray-700'>Role:</label>
+                <label className='block text-sm font-medium text-gray-700'>
+                  Role:
+                </label>
                 <select
                   name='role'
                   value={newTeacherData.role}
@@ -187,6 +409,96 @@ export default function DataPengajar() {
                   <option value='kepala_sekolah'>Kepala Sekolah</option>
                 </select>
               </div>
+
+        <div className='bg-white p-6 rounded-md shadow-md'>
+          <h2 className='text-xl font-semibold mb-4'>update Pengajar</h2>
+          {error && <p className='text-red-500'>{error}</p>}
+          <form onSubmit={handleUpdate}>
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700'>Nama:</label>
+              <input
+                type='text'
+                name='name'
+                value={newTeacherData.name}
+                onChange={handleChange}
+                required
+                className='mt-1 p-2 border border-gray-300 rounded-md w-full'
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700'>Password:</label>
+              <input
+                type='password'
+                name='password'
+                value={newTeacherData.password}
+                onChange={handleChange}
+                required
+                className='mt-1 p-2 border border-gray-300 rounded-md w-full'
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700'>Email:</label>
+              <input
+                type='email'
+                name='email'
+                value={newTeacherData.email}
+                onChange={handleChange}
+                required
+                className='mt-1 p-2 border border-gray-300 rounded-md w-full'
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700'>Nomor Telepon:</label>
+              <input
+                type='text'
+                name='phone_number'
+                value={newTeacherData.phone_number}
+                onChange={handleChange}
+                placeholder="Jika Nomer masih sama kosongkan saja"
+                className='mt-1 p-2 border border-gray-300 rounded-md w-full'
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700'>Nomor Telepon Kedua (Opsional):</label>
+              <input
+                type='text'
+                name='second_phone_number'
+                value={newTeacherData.second_phone_number}
+                onChange={handleChange}
+                placeholder="Optional"
+                className='mt-1 p-2 border border-gray-300 rounded-md w-full'
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700'>Alamat (Opsional):</label>
+              <input
+                type='text'
+                name='address'
+                value={newTeacherData.address}
+                onChange={handleChange}
+                placeholder="Optional"
+                className='mt-1 p-2 border border-gray-300 rounded-md w-full'
+              />
+            </div>
+
+            <div className='mb-4'>
+              <label className='block text-sm font-medium text-gray-700'>Role:</label>
+              <select
+                name='role'
+                value={newTeacherData.role}
+                onChange={handleChange}
+                required
+                className='mt-1 p-2 border border-gray-300 rounded-md w-full'>
+                <option value=''>Pilih Role</option>
+                <option value='guru'>Guru</option> 
+              </select>
+            </div>
+
               <div className='flex justify-end'>
                 <button
                   type='button'

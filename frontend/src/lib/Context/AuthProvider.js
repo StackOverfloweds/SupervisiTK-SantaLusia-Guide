@@ -1,6 +1,6 @@
-"use client"
-import { createContext, useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+"use client";
+import { createContext, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
 const AuthContext = createContext();
@@ -19,7 +19,6 @@ export function  AuthProvider({children}) {
             return;
         }
         ValidateToken(token).then((resolve) => {
-            console.log(resolve);
             if(!resolve.token_valid){
                 sessionStorage.removeItem("token")
                 router.refresh();
@@ -79,49 +78,50 @@ export function  AuthProvider({children}) {
             setAuthMessage(e);
             console.error(e);
         }
+    };
+
+
+
+  const login = async (credentials) => {
+    if(!credentials){
+        setAuthMessage("Harap masukkan credential")
+        return;
     }
-
-
-    const login = async (credentials) => {
-        if(!credentials){
-            setAuthMessage("Harap masukkan credential")
-            return;
-        }
-        if(credentials.email == " " || credentials.password == " "){
-            setAuthMessage("email atau password masih kosong")
-            return;
-        }
-
-        try{
-
-            const Login = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login`,{
-                headers:{
-                    "Content-Type":"application/json",
-                    "Authorization" : `bearer ${token}`
-
-                },
-                method:"POST",
-                body:JSON.stringify({
-                    "name": credentials.firstName,
-                    "password" : credentials.password
-                })
-            })
-            const dat = await Login.json()
-            if(Login.ok){
-                setAuthMessage("Login Berhasil")
-                setUserData(dat);
-                sessionStorage.setItem("token",dat.token);
-                setToken(dat.token);
-                setIsAuthenticated(true);
-                return dat;
-            }
+    if(credentials.email == " " || credentials.password == " "){
+        setAuthMessage("email atau password masih kosong")
+        return;
+    }
+      
+    try {
+      const Login = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login/`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokens}`,
+           },
+          method:"POST",
+          body:JSON.stringify({
+            "name": credentials.firstName,
+            "password" : credentials.password
+             })
+         });
+        const dat = await Login.json()
+        if(Login.ok){
+            setAuthMessage("Login Berhasil")
+            setUserData(dat);
+            sessionStorage.setItem("token",dat.token);
+            setToken(dat.token);
+            setIsAuthenticated(true);
             return dat;
-        }catch(e){
-            setAuthMessage(e);
-            console.log(e)
-            return;
         }
-    }
+        return dat;
+     }catch(e){
+       setAuthMessage(e);
+       console.log(e)
+       return;
+     }
+  };
 
     const logout = async () => {
         try {
@@ -137,8 +137,6 @@ export function  AuthProvider({children}) {
                 throw new Error('Logout failed');
             }
             const data = await response.json();
-            console.log(data.message);
-    
             // Remove the token and reset state
             sessionStorage.removeItem("token");
             setAuthMessage(null);
@@ -147,14 +145,21 @@ export function  AuthProvider({children}) {
         } catch (error) {
             console.error('Logout error:', error); 
         }
-    };    
-
-    return(
-        <AuthContext.Provider value={{ isAuthenticated, userData, authMessage, login, logout, Register }}>
-            {children}
-        </AuthContext.Provider>
-    )
-
+    };   
+  
+  return (
+    <AuthContext.Provider
+      value={{
+        isAuthenticated,
+        userData,
+        authMessage,
+        login,
+        logout,
+        Register,
+      }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export default AuthContext;

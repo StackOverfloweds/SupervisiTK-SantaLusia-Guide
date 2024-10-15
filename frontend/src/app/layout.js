@@ -1,7 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 
-import {AuthProvider} from "@/lib/Context/AuthProvider";
+import {AuthProvider} from "../lib/Context/AuthProvider";
 
 
 
