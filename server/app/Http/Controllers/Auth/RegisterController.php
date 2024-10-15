@@ -70,10 +70,8 @@ class RegisterController extends Controller
         } catch (\Throwable $th) {
             // Rollback the transaction if something goes wrong
         DB::rollBack();
-
         return response()->json([
             'error' => 'Registration failed',
-            'message' => $th->getMessage()
         ], 500);
     }
 
