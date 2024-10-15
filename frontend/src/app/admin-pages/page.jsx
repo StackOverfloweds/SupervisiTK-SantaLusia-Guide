@@ -1,5 +1,5 @@
 import React from "react";
-import NavbarAdmin from "@/components/ui/NabbarAdmin";
+import NavbarAdmin from "../../components/ui/NabbarAdmin";
 import MenuAdmin from "./menu";
 
 export default function Admin() {

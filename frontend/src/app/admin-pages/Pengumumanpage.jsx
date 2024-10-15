@@ -5,9 +5,54 @@ export default function Pengumunan() {
   const router = useRouter();
 
   const gotopage = () => {
-    const r =  router.push("/admin-pages/component-admin/tambah-pengumuman");
-    console.log('isi nya', r)
+    addPopupAnnouncement();
   };
+
+  const addPopupAnnouncement = () => {
+    const popupContainer = document.createElement("div");
+    popupContainer.className =
+      "fixed inset-0 flex items-center justify-center bg-black bg-opacity-50";
+
+    const popupBox = document.createElement("div");
+    popupBox.className =
+      "bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center";
+
+    const popupText = document.createElement("p");
+    popupText.textContent = "Masukkan Pengumuman Anda:";
+    popupText.className = "text-lg font-semibold mb-4";
+
+    const textAreaField = document.createElement("textarea");
+    textAreaField.placeholder = "Tulis pengumuman di sini...";
+    textAreaField.className =
+      "w-full p-2 border rounded mb-4 h-32 resize-none focus:ring-2 focus:ring-blue-500";
+
+    const submitButton = document.createElement("button");
+    submitButton.textContent = "Submit";
+    submitButton.className = "bg-blue-500 text-white px-4 py-2 rounded";
+    submitButton.onclick = () => {
+      const announcement = textAreaField.value;
+      if (announcement) {
+        alert(`Pengumuman: ${announcement}`);
+        popupContainer.remove();
+      } else {
+        alert("Silakan masukkan pengumuman.");
+      }
+    };
+
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "Close";
+    closeButton.className = "bg-red-500 text-white px-4 py-2 rounded";
+    closeButton.onclick = () => popupContainer.remove();
+
+    const buttonContainer = document.createElement("div");
+    buttonContainer.className = "flex justify-center space-x-4";
+    buttonContainer.append(submitButton, closeButton);
+
+    popupBox.append(popupText, textAreaField, buttonContainer);
+    popupContainer.appendChild(popupBox);
+    document.body.appendChild(popupContainer);
+  };
+
   return (
     <div className='p-4'>
       <div className='text-center mb-4'>
@@ -56,6 +101,150 @@ export default function Pengumunan() {
           </p>
         </div>
 
+        <div className='bg-gray-50 p-4 border border-gray-200 rounded-md shadow-sm'>
+          <p className='text-gray-800 mb-2'>
+            Kepada Yth. Orang Tua/Wali Siswa, Kami menginformasikan bahwa
+            pengumpulan buku PR siswa TK akan dilaksanakan pada:
+          </p>
+          <ul className='list-disc pl-5 mb-2'>
+            <li>
+              <strong>Hari/Tanggal:</strong> [Hari, Tanggal]
+            </li>
+            <li>
+              <strong>Waktu:</strong> [Jam]
+            </li>
+            <li>
+              <strong>Tempat Pengumpulan:</strong> [Tempat Pengumpulan]
+            </li>
+          </ul>
+          <p className='text-gray-800'>
+            Mohon kerjasamanya untuk memastikan bahwa buku PR anak Anda telah
+            lengkap dan sesuai dengan tugas yang telah diberikan. Pengumpulan
+            ini penting untuk mengevaluasi perkembangan dan kemajuan belajar
+            anak-anak kita. Jika ada pertanyaan atau memerlukan informasi lebih
+            lanjut, silakan menghubungi wali kelas masing-masing.
+          </p>
+        </div>
+        <div className='bg-gray-50 p-4 border border-gray-200 rounded-md shadow-sm'>
+          <p className='text-gray-800 mb-2'>
+            Kepada Yth. Orang Tua/Wali Siswa, Kami menginformasikan bahwa
+            pengumpulan buku PR siswa TK akan dilaksanakan pada:
+          </p>
+          <ul className='list-disc pl-5 mb-2'>
+            <li>
+              <strong>Hari/Tanggal:</strong> [Hari, Tanggal]
+            </li>
+            <li>
+              <strong>Waktu:</strong> [Jam]
+            </li>
+            <li>
+              <strong>Tempat Pengumpulan:</strong> [Tempat Pengumpulan]
+            </li>
+          </ul>
+          <p className='text-gray-800'>
+            Mohon kerjasamanya untuk memastikan bahwa buku PR anak Anda telah
+            lengkap dan sesuai dengan tugas yang telah diberikan. Pengumpulan
+            ini penting untuk mengevaluasi perkembangan dan kemajuan belajar
+            anak-anak kita. Jika ada pertanyaan atau memerlukan informasi lebih
+            lanjut, silakan menghubungi wali kelas masing-masing.
+          </p>
+        </div>
+        <div className='bg-gray-50 p-4 border border-gray-200 rounded-md shadow-sm'>
+          <p className='text-gray-800 mb-2'>
+            Kepada Yth. Orang Tua/Wali Siswa, Kami menginformasikan bahwa
+            pengumpulan buku PR siswa TK akan dilaksanakan pada:
+          </p>
+          <ul className='list-disc pl-5 mb-2'>
+            <li>
+              <strong>Hari/Tanggal:</strong> [Hari, Tanggal]
+            </li>
+            <li>
+              <strong>Waktu:</strong> [Jam]
+            </li>
+            <li>
+              <strong>Tempat Pengumpulan:</strong> [Tempat Pengumpulan]
+            </li>
+          </ul>
+          <p className='text-gray-800'>
+            Mohon kerjasamanya untuk memastikan bahwa buku PR anak Anda telah
+            lengkap dan sesuai dengan tugas yang telah diberikan. Pengumpulan
+            ini penting untuk mengevaluasi perkembangan dan kemajuan belajar
+            anak-anak kita. Jika ada pertanyaan atau memerlukan informasi lebih
+            lanjut, silakan menghubungi wali kelas masing-masing.
+          </p>
+        </div>
+        <div className='bg-gray-50 p-4 border border-gray-200 rounded-md shadow-sm'>
+          <p className='text-gray-800 mb-2'>
+            Kepada Yth. Orang Tua/Wali Siswa, Kami menginformasikan bahwa
+            pengumpulan buku PR siswa TK akan dilaksanakan pada:
+          </p>
+          <ul className='list-disc pl-5 mb-2'>
+            <li>
+              <strong>Hari/Tanggal:</strong> [Hari, Tanggal]
+            </li>
+            <li>
+              <strong>Waktu:</strong> [Jam]
+            </li>
+            <li>
+              <strong>Tempat Pengumpulan:</strong> [Tempat Pengumpulan]
+            </li>
+          </ul>
+          <p className='text-gray-800'>
+            Mohon kerjasamanya untuk memastikan bahwa buku PR anak Anda telah
+            lengkap dan sesuai dengan tugas yang telah diberikan. Pengumpulan
+            ini penting untuk mengevaluasi perkembangan dan kemajuan belajar
+            anak-anak kita. Jika ada pertanyaan atau memerlukan informasi lebih
+            lanjut, silakan menghubungi wali kelas masing-masing.
+          </p>
+        </div>
+        <div className='bg-gray-50 p-4 border border-gray-200 rounded-md shadow-sm'>
+          <p className='text-gray-800 mb-2'>
+            Kepada Yth. Orang Tua/Wali Siswa, Kami menginformasikan bahwa
+            pengumpulan buku PR siswa TK akan dilaksanakan pada:
+          </p>
+          <ul className='list-disc pl-5 mb-2'>
+            <li>
+              <strong>Hari/Tanggal:</strong> [Hari, Tanggal]
+            </li>
+            <li>
+              <strong>Waktu:</strong> [Jam]
+            </li>
+            <li>
+              <strong>Tempat Pengumpulan:</strong> [Tempat Pengumpulan]
+            </li>
+          </ul>
+          <p className='text-gray-800'>
+            Mohon kerjasamanya untuk memastikan bahwa buku PR anak Anda telah
+            lengkap dan sesuai dengan tugas yang telah diberikan. Pengumpulan
+            ini penting untuk mengevaluasi perkembangan dan kemajuan belajar
+            anak-anak kita. Jika ada pertanyaan atau memerlukan informasi lebih
+            lanjut, silakan menghubungi wali kelas masing-masing.
+          </p>
+        </div>
+        <div className='bg-gray-50 p-4 border border-gray-200 rounded-md shadow-sm'>
+          <p className='text-gray-800 mb-2'>
+            Kepada Yth. Orang Tua/Wali Siswa, Kami menginformasikan bahwa
+            pengumpulan buku PR siswa TK akan dilaksanakan pada:
+          </p>
+          <ul className='list-disc pl-5 mb-2'>
+            <li>
+              <strong>Hari/Tanggal:</strong> [Hari, Tanggal]
+            </li>
+            <li>
+              <strong>Waktu:</strong> [Jam]
+            </li>
+            <li>
+              <strong>Tempat Pengumpulan:</strong> [Tempat Pengumpulan]
+            </li>
+          </ul>
+          <p className='text-gray-800'>
+            Mohon kerjasamanya untuk memastikan bahwa buku PR anak Anda telah
+            lengkap dan sesuai dengan tugas yang telah diberikan. Pengumpulan
+            ini penting untuk mengevaluasi perkembangan dan kemajuan belajar
+            anak-anak kita. Jika ada pertanyaan atau memerlukan informasi lebih
+            lanjut, silakan menghubungi wali kelas masing-masing.
+          </p>
+        </div>
         <div className='bg-gray-50 p-4 border border-gray-200 rounded-md shadow-sm'>
           <p className='text-gray-800 mb-2'>
             Kepada Yth. Orang Tua/Wali Siswa, Kami menginformasikan bahwa

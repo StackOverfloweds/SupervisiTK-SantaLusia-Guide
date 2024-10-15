@@ -1,6 +1,7 @@
-"use client";
+
 import React, { useEffect, useState } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "../../components/ui/scroll-area";
+import { Tambah } from "../../app/admin-pages/component-admin/tambah-pengajar";
 
 export default function DataPengajar() {
   const [pengajar, setPengajar] = useState([]);
@@ -12,14 +13,18 @@ export default function DataPengajar() {
     email: "",
     phone_number: "",
     second_phone_number: "",
-    address: ""
+    address: "",
   });
   const [error, setError] = useState(null);
-  
+  const [showDialog, setShowDialog] = useState(false);
+  const [userInfo, setUserInfo] = useState({ name: "", unit: "" });
+
   useEffect(() => {
     const fetchPengajar = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/prof-user`);
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/prof-user`
+        );
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -36,9 +41,12 @@ export default function DataPengajar() {
   // Function to handle teacher deletion
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/delete/${id}`, {
-        method: 'DELETE',
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/delete/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to delete teacher");
@@ -118,6 +126,18 @@ const handleUpdate = async (e) => {
   const handleAddTeacher = async (e) => {
     e.preventDefault();
     try {
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/update/${editingTeacher.user_id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newTeacherData),
+        }
+      );
+
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/register`, {
         method: 'POST',
         headers: {
@@ -126,13 +146,23 @@ const handleUpdate = async (e) => {
         body: JSON.stringify(newTeacherData),
       });
 
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || "Failed to add teacher");
       }
 
+
+      const updatedTeacher = await response.json();
+      setPengajar((prev) =>
+        prev.map((item) =>
+          item.user_id === updatedTeacher.user_id ? updatedTeacher : item
+        )
+      );
+
       const addedTeacher = await response.json();
       setPengajar([...pengajar, addedTeacher]); // Add new teacher to the list
+
 
       // Close modal and reset form
       setIsAddTeacherModalOpen(false);
@@ -149,16 +179,42 @@ const handleUpdate = async (e) => {
       setError(error.message);
     }
   };
+  const handleShowDialog = (name, unit) => {
+    setUserInfo({ name, unit });
+    setShowDialog(true);
+  };
+  const handleSubmit = (confirm) => {
+    if (confirm) {
+      // Handle the submit action here
+      console.log("Submitted:", userInfo);
+    }
+    setShowDialog(false);
+  };
 
   return (
     <div className='fixed p-6 mt-0 '>
       <div className='flex flex-col text-center items-center justify-center'>
         <h1 className='text-3xl font-bold mb-4'>Data Pengajar</h1>
         <button
+
+          className='text-blue-600 font-semibold text-lg mb-4 inline-block'
+          onClick={() => handleShowDialog("John Doe", "Unit 123")}>
+          Tambahkan Pengajar
+        </button>
+
+        {showDialog && (
+          <Tambah
+            name={userInfo.name}
+            unit={userInfo.unit}
+            onSubmit={handleSubmit}
+          />
+        )}
+
           onClick={() => setIsAddTeacherModalOpen(true)}
           className='text-blue-600 font-semibold text-lg mb-4 inline-block'>
           Tambahkan Pengajar
         </button>
+
       </div>
 
       <div className='overflow-y-auto h-[50vh]'>
@@ -187,7 +243,7 @@ const handleUpdate = async (e) => {
                   <td className='py-4 px-6 font-medium text-gray-900'>
                     {item.name}
                   </td>
-                  <td className='py-4 px-6'>{'TK SANTA LUSIA SEI ROTAN'}</td>
+                  <td className='py-4 px-6'>{"TK SANTA LUSIA SEI ROTAN"}</td>
                   <td className='py-4 px-6'>
                     <button
                       onClick={() => handleEdit(item)}
@@ -319,6 +375,41 @@ const handleUpdate = async (e) => {
       {/* Edit Teacher Modal */}
       {editingTeacher && (
         <div className='fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-50'>
+
+          <div className='bg-white p-6 rounded-md shadow-md'>
+            <h2 className='text-xl font-semibold mb-4'>Edit Pengajar</h2>
+            {error && <p className='text-red-500'>{error}</p>}
+            <form onSubmit={handleUpdate}>
+              <div className='mb-4'>
+                <label className='block text-sm font-medium text-gray-700'>
+                  Nama:
+                </label>
+                <input
+                  type='text'
+                  name='name'
+                  value={newTeacherData.name}
+                  onChange={handleChange}
+                  required
+                  className='mt-1 p-2 border border-gray-300 rounded-md w-full'
+                />
+              </div>
+              <div className='mb-4'>
+                <label className='block text-sm font-medium text-gray-700'>
+                  Role:
+                </label>
+                <select
+                  name='role'
+                  value={newTeacherData.role}
+                  onChange={handleChange}
+                  required
+                  className='mt-1 p-2 border border-gray-300 rounded-md w-full'>
+                  <option value=''>Select Role</option>
+                  <option value='guru'>Guru</option>
+                  <option value='wali_murid'>Wali Murid</option>
+                  <option value='kepala_sekolah'>Kepala Sekolah</option>
+                </select>
+              </div>
+
         <div className='bg-white p-6 rounded-md shadow-md'>
           <h2 className='text-xl font-semibold mb-4'>update Pengajar</h2>
           {error && <p className='text-red-500'>{error}</p>}
@@ -407,6 +498,7 @@ const handleUpdate = async (e) => {
                 <option value='guru'>Guru</option> 
               </select>
             </div>
+
               <div className='flex justify-end'>
                 <button
                   type='button'
