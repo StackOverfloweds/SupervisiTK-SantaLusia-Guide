@@ -1,8 +1,8 @@
 "use client"
 import Image from "next/image"
-import logo from "@/img/logo.png"
+import logo from "../../img/logo.png"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../components/ui/button"
 import { usePathname } from "next/navigation"
 import { IoMenu } from "react-icons/io5";
 import {
@@ -14,9 +14,10 @@ import {
     SheetHeader,
     SheetTitle,
     SheetTrigger,
-  } from "@/components/ui/sheet"
+  } from "../../components/ui/sheet"
 
   
+
 
 export default function NavbarUser() {
     const pathName = usePathname()
@@ -55,6 +56,7 @@ export default function NavbarUser() {
                         tk santa lusia
                     </a>
                 </div>
+
                 <div className="md:hidden visible flex items-center justify-end ">
                     {navbarSheets()}
                 </div>
@@ -63,7 +65,7 @@ export default function NavbarUser() {
                     <li><Link href="/About" className={ `${pathName == "/About" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} ${defaultStyle}`}>Tentang kami</Link></li>
                     <li><Link href="/Contact" className={ `${pathName == "/Contact" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} ${defaultStyle}`}>Kontak kami</Link></li>
                     <li><Link href="/Registration" className={ `${pathName == "/Registration" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} ${defaultStyle}`}>Pendaftaran</Link></li>
-                    <li><Link href="/Login" className={ `${pathName == "/Login" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} ${defaultStyle}`}>Login</Link></li>
+                    <li><Link href="/Authentication" className={ `${pathName == "/Authentication" ? "bg-pink-500 text-white" : "hover:bg-pink-500 hover:text-white active:bg-pink-500 active:text-white"} ${defaultStyle}`}>Login</Link></li>
                 </ul>
             </nav>
     )

@@ -1,6 +1,10 @@
 import localFont from "next/font/local";
 import "./globals.css";
 
+import {AuthProvider} from "../lib/Context/AuthProvider";
+
+
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -40,7 +44,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${poppins.variable} ${bebasNeue.variable} ${poppinsBold.variable} after:antialiased`}
       >
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

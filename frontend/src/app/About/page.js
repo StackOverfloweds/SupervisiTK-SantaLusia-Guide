@@ -1,39 +1,39 @@
 "use client"
 import { useState,useEffect, useRef } from "react";
-import NavbarUser from "@/components/ui/NavbarUser";
+import NavbarUser from "../../components/ui/NavbarUser";
 import { IoStar } from "react-icons/io5";
-import GuruSantaLusia from "@/img/Gurusantalusia.png";
-import gambarDepan from "@/img/About/gambardepan.png"
-import kantor from "@/img/About/kantor.jpg"
-import kegiatan from "@/img/About/kegiatannn.jpg"
-import ruangBermain from "@/img/About/ruangbermain.png"
-import ruangKelas1 from "@/img/About/ruangkelas.jpg"
-import ruangKelas2 from "@/img/About/ruangkelass.jpg"
-import pembelajaran1 from "@/img/About/pembelajaran1.jpg"
-import pembelajaran2 from "@/img/About/pembelajaran2.jpg"
-import pembelajaran3 from "@/img/About/pembelajaran3.jpg"
-import KegiatanLainnya1 from "@/img/About/KegiatanLainnya1.jpg"
-import KegiatanLainnya2 from "@/img/About/KegiatanLainnya2.jpg"
-import KegiatanLainnya3 from "@/img/About/KegiatanLainnya3.jpg"
-import KegiatanLainnya4 from "@/img/About/KegiatanLainnya4.jpg"
-import KegiatanLainnya5 from "@/img/About/KegiatanLainnya5.jpg"
-import KegiatanLainnya6 from "@/img/About/KegiatanLainnya6.jpg"
-import KegiatanLainnya7 from "@/img/About/KegiatanLainnya7.jpg"
-import KegiatanLainnya8 from "@/img/About/KegiatanLainnya8.jpg"
+import GuruSantaLusia from "../../img/Gurusantalusia.png";
+import gambarDepan from "../../img/About/gambardepan.png"
+import kantor from "../../img/About/kantor.jpg"
+import kegiatan from "../../img/About/kegiatannn.jpg"
+import ruangBermain from "../../img/About/ruangbermain.png"
+import ruangKelas1 from "../../img/About/ruangkelas.jpg"
+import ruangKelas2 from "../../img/About/ruangkelass.jpg"
+import pembelajaran1 from "../../img/About/pembelajaran1.jpg"
+import pembelajaran2 from "../../img/About/pembelajaran2.jpg"
+import pembelajaran3 from "../../img/About/pembelajaran3.jpg"
+import KegiatanLainnya1 from "../../img/About/KegiatanLainnya1.jpg"
+import KegiatanLainnya2 from "../../img/About/KegiatanLainnya2.jpg"
+import KegiatanLainnya3 from "../../img/About/KegiatanLainnya3.jpg"
+import KegiatanLainnya4 from "../../img/About/KegiatanLainnya4.jpg"
+import KegiatanLainnya5 from "../../img/About/KegiatanLainnya5.jpg"
+import KegiatanLainnya6 from "../../img/About/KegiatanLainnya6.jpg"
+import KegiatanLainnya7 from "../../img/About/KegiatanLainnya7.jpg"
+import KegiatanLainnya8 from "../../img/About/KegiatanLainnya8.jpg"
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
+import { Button } from "../../components/ui/button";
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-  } from "@/components/ui/carousel"
+  } from "../../components/ui/carousel"
 
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 import 'photoswipe/style.css'
 import Autoplay from "embla-carousel-autoplay"
-import useCheckClientDimension from "@/lib/hooks";
+import useCheckClientDimension from "../../lib/hooks";
 
 
 export function SimpleGallery({galleryID,children, className}) {
