@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Logo from "@/img/iconSalib.png";
+import Logo from "../../img/iconSalib.png";
 import Dashboard from "./dasboard";
 import Chatgrup from "./Chatgrup";
 import Datapengajar from "./datapengajar";
