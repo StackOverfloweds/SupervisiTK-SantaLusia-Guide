@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Announcement\AnnouncementController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -48,6 +49,15 @@ Route::middleware(['cors'])->group(function () {
 
         // Route to validate the JWT token
         Route::get('/validate-token/{token}', [validateToken::class, 'validateToken']);
+    });
+
+    //prefix for announcement
+    Route::prefix('announcement')->group(function () {
+
+        Route::post('/store', [AnnouncementController::class, 'store']);
+
+        Route::get('/getData', [AnnouncementController::class, 'getDataAnnouncement']);
+
     });
     
     
