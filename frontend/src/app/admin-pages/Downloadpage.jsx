@@ -69,7 +69,7 @@ export default function DownloadPage() {
 
   return (
     <div className='container mx-auto p-4'>
-      <h1 className='text-2xl font-bold mb-4'>Halaman Download</h1>
+      <h1 className='text-2xl font-bold mb-4 text-center'>Halaman Download</h1>
       <div className='overflow-x-auto'>
         <table className='min-w-full bg-white border rounded-lg'>
           <thead className='bg-gray-200 text-gray-600'>
