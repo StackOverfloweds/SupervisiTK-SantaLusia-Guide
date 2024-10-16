@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Logo from "../../img/iconSalib.png";
 import Dashboard from "./dasboard";
 import Chatgrup from "./Chatgrup";
@@ -9,12 +9,18 @@ import Menumaster from "./menumaster";
 import Pengumpulan from "./Pengumpulanpage";
 import Pengumunan from "./Pengumumanpage";
 import Supervicepage from "./supervicepage";
+import AuthContext from "../../lib/Context/AuthProvider";
 
 
 export default function MenuAdmin() {
   const [activeMenu, setActiveMenu] = useState("Dashboard");
+  const { userData } = useContext(AuthContext);
 
-  const Menu = [
+  useState(() => {
+    console.log(userData);
+  },[])
+
+  const MenuGuru = [
     {
       title: "Dasboard",
       onclick: () => handleMenuClick("Dashboard"),
@@ -28,7 +34,34 @@ export default function MenuAdmin() {
       onclick: () => handleMenuClick("Pengumpulan"),
     },
     {
-      title: "Halaman Supervici",
+      title: "Halaman Supervisi",
+      onclick: () => handleMenuClick("Supervicepage"),
+    },
+    {
+      title: "Halaman Grup Chat",
+      onclick: () => handleMenuClick("Chatgrup"),
+    },
+    {
+      title: "Halaman Download",
+      onclick: () => handleMenuClick("Downloadpage"),
+    },
+  ];
+
+  const MenuKepsek = [
+    {
+      title: "Dasboard",
+      onclick: () => handleMenuClick("Dashboard"),
+    },
+    {
+      title: "Halaman Pengumuman",
+      onclick: () => handleMenuClick("Pengumunan"),
+    },
+    {
+      title: "Pengumpulan RPH dan Vidio",
+      onclick: () => handleMenuClick("Pengumpulan"),
+    },
+    {
+      title: "Halaman Supervisi",
       onclick: () => handleMenuClick("Supervicepage"),
     },
     {
@@ -76,6 +109,8 @@ export default function MenuAdmin() {
     }
   };
 
+
+
   return (
     <div className='h-screen w-screen flex'>
       <div className='w-[20rem] bg-DF text-white font-bold'>
@@ -85,13 +120,31 @@ export default function MenuAdmin() {
           <span>tk santa lusia</span>
         </div>
         <ul className='flex flex-col mt-10 space-y-10 ml-[3rem] font-poppins font-bold'>
-          {Menu.map((menus, index) => (
-            <li key={index} onClick={menus.onclick}>
-              <span className={`border-b-2 border-transparent hover:border-white cursor-pointer`}>
-                {menus.title}
-              </span>
-            </li>
-          ))}
+
+          {
+          !userData? <h1 className="animate-pulse font-bold text-3xl">Loading</h1> 
+          : 
+          userData.user.role == "guru" ?
+          MenuGuru.map((menus, index) => {
+            return(
+              <li key={index} onClick={menus.onclick}>
+                <span className={`border-b-2 border-transparent hover:border-white cursor-pointer`}>
+                  {menus.title}
+                </span>
+              </li>
+            )
+              
+          }) : 
+          MenuKepsek.map((menus,index) => {
+            return(
+              <li key={index} onClick={menus.onclick}>
+                <span className={`border-b-2 border-transparent hover:border-white cursor-pointer`}>
+                  {menus.title}
+                </span>
+              </li>
+            )
+          })
+        }
         </ul>
       </div>
       <div className='flex-1 flex justify-center items-center p-8'>

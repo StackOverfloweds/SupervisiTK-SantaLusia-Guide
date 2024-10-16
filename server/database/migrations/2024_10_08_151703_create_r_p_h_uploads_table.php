@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('r_p_h_uploads', function (Blueprint $table) {
             $table->id();
             $table->uuid('user_id');
-            $table->enum('file_type', ['RPH', 'Video Pembelajaran']); // Tipe file
+            $table->enum('file_type', ['RPH', 'Video_Pembelajaran']); // Tipe file
             $table->string('file_path'); // Lokasi file yang diunggah
             $table->string('description');
             $table->timestamps();

@@ -21,14 +21,18 @@ import { useEffect, useState } from "react"; // Import useEffect and useState
 import { Router } from "next/router";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Toaster } from "../../components/ui/toaster";
+import { useToast } from "../../hooks/use-toast";
+
 export default function Pengumpulan() {
   const [users, setUsers] = useState([]); // State to hold users
   const [selectedUserId, setSelectedUserId] = useState(null); // State to hold selected user ID
   const [selectedFile, setSelectedFile] = useState(null); // State to hold selected file
-  const [submissionType, setSubmissionType] = useState(""); // State to hold submission type
+  const [submissionType, setSubmissionType] = useState(null); // State to hold submission type
   const [description, setDescription] = useState(""); // State to hold description
   const [loading, setLoading] = useState(false); // State to track loading status
-  const router = useRouter();
+  const {toast} = useToast();
+  
   useEffect(() => {
     // Fetch users from the backend
     const fetchUsers = async () => {
@@ -49,7 +53,11 @@ export default function Pengumpulan() {
   // Handle form submission
   const handleSubmit = async () => {
     if (!selectedUserId || !selectedFile || !submissionType || !description) {
-      alert("Please fill in all fields.");
+      toast({
+        variant:"destructive",
+        title:"Failed to upload file",
+        description:"harap cek lagi syarat penguploadan dan pastikan tidak ada input yang kosong"
+      })
       return;
     }
 
@@ -58,6 +66,10 @@ export default function Pengumpulan() {
     formData.append("file", selectedFile);
     formData.append("file_type", submissionType);
     formData.append("description", description);
+    console.log(formData.get("user_id"))
+    console.log(formData.get("file"))
+    console.log(formData.get("file_type"))
+    console.log(formData.get("description"))
 
     setLoading(true); // Set loading to true when the upload starts
     try {
@@ -74,10 +86,17 @@ export default function Pengumpulan() {
       }
 
       const result = await response.json();
-      alert(result.message); // Show success message
+      toast({
+        variant:"success",
+        title:"Penguploadan berhasil",
+        description:result.message
+      })
     } catch (error) {
-      console.error("Error uploading file:", error);
-      alert("Failed to upload file.");
+      toast({
+        variant:"destructive",
+        title:"Failed to upload file",
+        description:"harap cek lagi syarat penguploadan dan pastikan tidak ada input yang kosong"
+      })
     } finally {
       setLoading(false); // Reset loading state after the upload attempt
     }
@@ -140,9 +159,44 @@ export default function Pengumpulan() {
           <input
             id='uploadFile'
             type='file'
+            accept={submissionType == "RPH" ? ".pdf": "video/mp4,video/x-m4v,video/*"}
             className='w-full border border-gray-300 rounded-md p-2 focus:outline-none'
-            onChange={(e) => setSelectedFile(e.target.files[0])} // Update selected file
+            onChange={(e) => {
+              if(!submissionType){
+                toast({
+                  variant:"destructive",
+                  title:"Kesalahan",
+                  description:"harap isi jenis pengumpulan sebelum mengupload file"
+                })
+                e.target.value = null;
+                return;
+              }
+              if(e.target.files[0].type != "application/pdf" && submissionType == "RPH"){
+                toast({
+                  variant:"destructive",
+                  title:"File tidak sesuai",
+                  description:"file yang diupload harusnya PDF"
+                })
+                e.target.value = null;
+                return;
+              }else if(e.target.files[0].type != "video/mp4" && submissionType == "Video"){
+                toast({
+                  variant:"destructive",
+                  title:"File tidak sesuai",
+                  description:"file yang diupload harusnya Video"
+                })
+                e.target.value = null;
+                return;
+              }
+              setSelectedFile(e.target.files[0])
+              // if(setSelectedFil)
+            }} // Update selected file
           />
+          <p className="text-xs">Syarat penguploadan vidio : </p>
+          <ul role="list" className="text-xs marker:text-red-500 text-red-500 marker">
+            <li>*format vidio mp4</li>
+            <li>*berukuran maks 60mb</li>
+          </ul>
         </div>
 
         {/* Keterangan */}
@@ -205,6 +259,7 @@ export default function Pengumpulan() {
           </div>
         </div>
       </div>
+      <Toaster/>
     </div>
   );
 }
