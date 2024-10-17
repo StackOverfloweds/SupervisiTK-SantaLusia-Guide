@@ -15,7 +15,7 @@ export default function KontakKami(){
             
             <section className="my-14">
                 <div className="relative w-[150px] md:w-[250px] h-[200px] md:h-[350px] mx-auto ">
-                    <Image src={SantaLusia} fill={true} sizes="(max-width: 768px) 400px, 700px" className="object-cover"></Image>
+                    <Image src={SantaLusia} fill={true} sizes="(max-width: 768px) 400px, 700px" alt="foto santa lusia" className="object-cover"></Image>
                 </div>
                 <h1 className="font-bebasNeue text-3xl md:text-5xl text-center my-5 text-gray-500">TK Santa Lusia Sei Rotan</h1>
             </section>
@@ -52,7 +52,7 @@ export default function KontakKami(){
                     </div>
                     <div className="text-white font-poppins borde w-full md:max-w-lg order-1 md:order-2">
                         <h1 className="font-poppinsBold text-xl md:text-3xl md:w-[500px] mb-5">Ikuti semua kegiatan seru kami di Media sosial kami</h1>
-                        <p className="leading-loose text-md md:text-xl">"Bergabunglah dengan kami di media sosial untuk meraih update terbaru tentang kegiatan dan prestasi sekolah kami! Jadilah bagian dari komunitas kami yang dinamis dan ikuti perjalanan pendidikan yang inspiratif bersama kami. Kunjungi akun media sosial kami dan temukan lebih banyak lagi alasan untuk bergabung dengan kami di Sekolah Santa Lusia!"</p>
+                        <p className="leading-loose text-md md:text-xl">&quot;Bergabunglah dengan kami di media sosial untuk meraih update terbaru tentang kegiatan dan prestasi sekolah kami! Jadilah bagian dari komunitas kami yang dinamis dan ikuti perjalanan pendidikan yang inspiratif bersama kami. Kunjungi akun media sosial kami dan temukan lebih banyak lagi alasan untuk bergabung dengan kami di Sekolah Santa Lusia!&quot;</p>
                     </div>
                 </div>
             </section>
