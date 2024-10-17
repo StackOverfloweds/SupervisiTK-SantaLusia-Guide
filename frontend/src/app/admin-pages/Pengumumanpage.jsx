@@ -1,5 +1,5 @@
 "use client"
-import {useState,useEffect, useContext} from 'react'
+import {useState,useEffect, useContext, useCallback} from 'react'
 import { useRouter } from "next/navigation";
 import { ScrollArea } from "../../components/ui/scroll-area";
 import { Toaster } from "../../components/ui/toaster";
@@ -15,7 +15,7 @@ export default function Pengumunan() {
 
   useEffect(() => {
     handleGet()
-  },[])
+  },[handleGet])
 
   const handleUpload = async (announcement) => {
     try{
@@ -51,7 +51,7 @@ export default function Pengumunan() {
     }
   }
 
-  const handleGet = async () => {
+  const handleGet = useCallback(async () => {
     try{
       const upload = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/announcement/getData`,{
         method:"GET",
@@ -75,7 +75,7 @@ export default function Pengumunan() {
         description:e,
       })
     }
-  }
+  },[toast])
 
   
   return (

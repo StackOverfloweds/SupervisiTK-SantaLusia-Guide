@@ -105,14 +105,14 @@ export default function Home() {
               <FaRegGem size={50} color="white" className="p-2 rounded-full bg-pink-500 mx-auto mb-2"/>
               <h1 className="mb-2">MOTTO KAMI</h1>
               <span>
-                <p className="text-gray-800 font-medium italic font-poppinsBold">“CERDAS, CERIA, UNGGUL DAN PEDULI SESAMA (CCUP)"</p>
+                <p className="text-gray-800 font-medium italic font-poppinsBold">&quot;CERDAS, CERIA, UNGGUL DAN PEDULI SESAMA (CCUP)&quot;</p>
               </span>
             </div>
             <div className="text-center font-poppins text-gray-500  md:row-span-2 m-auto ">
               <GoTrophy size={50} color="white" className="p-2 rounded-full bg-pink-500 mx-auto mb-2"/>
               <h1 className="mb-2">VISI KAMI</h1>
               <span className="">
-                <p className="text-gray-800 font-medium  italic font-poppinsBold">“Menjadi Lembaga Pendidikan yang Unggul dan Berkualitas dengan Semangat Santa Lusia”</p>
+                <p className="text-gray-800 font-medium  italic font-poppinsBold">&quot;Menjadi Lembaga Pendidikan yang Unggul dan Berkualitas dengan Semangat Santa Lusia&quot;</p>
               </span>
             </div>
             <div className="border  md:col-span-2 md:row-span-4 relative">
@@ -183,9 +183,9 @@ export default function Home() {
           </div>
           <div className="font-poppins w-full md:col-span-2 md:p-0  flex justify-center items-center ">
             <div className="m-auto">
-              <h1 className="mb-2 font-bebasNeue text-5xl text-blue-500 ">“CERDAS, CERIA, UNGGUL DAN PEDULI SESAMA (CCUP)"</h1>
-              <p className="mb-1 text-gray-600 text-md">"Filosofi CCUP, yaitu Cerdas, Ceria, Unggul, dan Peduli Sesama, menjadi landasan utama bagi setiap siswa di Sekolah Santa Lusia, mengilhami mereka untuk berkembang secara holistik dan menjadi individu yang berkontribusi dalam masyarakat."</p>
-              <p className=" text-gray-600 text-md">"Dengan komitmen terhadap nilai-nilai CCUP, kami memastikan bahwa setiap siswa tidak hanya memiliki kecerdasan akademis, tetapi juga kepribadian yang ceria, prestasi yang unggul, serta rasa peduli yang mendalam terhadap sesama dan lingkungan."</p>
+              <h1 className="mb-2 font-bebasNeue text-5xl text-blue-500 ">&quot;CERDAS, CERIA, UNGGUL DAN PEDULI SESAMA (CCUP)&quot;</h1>
+              <p className="mb-1 text-gray-600 text-md">&quot;Filosofi CCUP, yaitu Cerdas, Ceria, Unggul, dan Peduli Sesama, menjadi landasan utama bagi setiap siswa di Sekolah Santa Lusia, mengilhami mereka untuk berkembang secara holistik dan menjadi individu yang berkontribusi dalam masyarakat.&quot;</p>
+              <p className=" text-gray-600 text-md">&quot;Dengan komitmen terhadap nilai-nilai CCUP, kami memastikan bahwa setiap siswa tidak hanya memiliki kecerdasan akademis, tetapi juga kepribadian yang ceria, prestasi yang unggul, serta rasa peduli yang mendalam terhadap sesama dan lingkungan.&quot;</p>
             </div>
           </div>
         </div>
@@ -202,7 +202,7 @@ export default function Home() {
               <p className="text-left md:text-right">Guru-guru kami tidak hanya ahli dalam bidang mereka, tetapi juga mampu menciptakan pengalaman pembelajaran yang menyenangkan dan menarik bagi setiap siswa.</p>
             </span>
             <span className="w-[350px] h-[250px] md:w-full md:h-full md:row-span-3 border relative order-1 md:order-2">
-              <Image src={CookingClass} fill={true} className="object-cover object-bottom"></Image>
+              <Image src={CookingClass} fill={true} className="object-cover object-bottom" alt="Cooking Class"></Image>
             </span>
             <span className="order-3">
               <h1 className="font-bebasNeue text-gray-600 text-3xl text-left ">Pengajaran Yang Profesional</h1>
@@ -238,7 +238,7 @@ export default function Home() {
               <h1 className="font-bebasNeue text-2xl md:text-3xl text-center col-span-2">Pendaftaran</h1>
               <span className="text-md ">
                 <p className="font-poppins text-center py-2">Langsung</p>
-                <h3 className="font-poppins text-sm text-center">"Silakan datang ke <span className="font-poppinsBold">Sekolah Santa Lusia berlokasi  </span> di <span className="font-poppinsBold">Jalan Medan Batang KUIS km 14 No.123 SEI ROTAN KEC.Percut sei TUAN KABUPATEN DELI SERDANG.</span>"</h3>
+                <h3 className="font-poppins text-sm text-center">&quot;Silakan datang ke <span className="font-poppinsBold">Sekolah Santa Lusia berlokasi  </span> di <span className="font-poppinsBold">Jalan Medan Batang KUIS km 14 No.123 SEI ROTAN KEC.Percut sei TUAN KABUPATEN DELI SERDANG.</span>&quot;</h3>
               </span>
               <span className="text-md ">
                 <p className="font-poppins text-center py-2">Online</p>
@@ -258,7 +258,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <h1 className="font-poppinsBold text-center md:w-[700px] mx-auto text-white mt-4 pb-5">"Kami dengan senang hati menyambut kedatangan Anda untuk mengenal lebih jauh tentang lingkungan pembelajaran kami yang inspiratif."</h1>
+          <h1 className="font-poppinsBold text-center md:w-[700px] mx-auto text-white mt-4 pb-5">&quot;Kami dengan senang hati menyambut kedatangan Anda untuk mengenal lebih jauh tentang lingkungan pembelajaran kami yang inspiratif.&quot;</h1>
         </div>
       </section>
 
