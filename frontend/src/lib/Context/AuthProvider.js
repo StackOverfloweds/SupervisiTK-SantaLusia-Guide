@@ -15,7 +15,6 @@ export function  AuthProvider({children}) {
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if(!token) {
-            router.push("/Authentication")
             return;
         }
         ValidateToken(token).then((resolve) => {
@@ -27,7 +26,7 @@ export function  AuthProvider({children}) {
             setUserData(resolve);
             router.push("/admin-pages");
         });
-    },[token])
+    },[router,token])
 
     const ValidateToken = async (token) => {
         try{

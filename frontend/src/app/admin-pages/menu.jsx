@@ -10,6 +10,7 @@ import Pengumpulan from "./Pengumpulanpage";
 import Pengumunan from "./Pengumumanpage";
 import Supervicepage from "./supervicepage";
 import AuthContext from "../../lib/Context/AuthProvider";
+import Image from "next/image";
 
 
 export default function MenuAdmin() {
@@ -115,7 +116,7 @@ export default function MenuAdmin() {
     <div className='h-screen w-screen flex'>
       <div className='w-[20rem] bg-DF text-white font-bold'>
         <div className='uppercase flex flex-col justify-center items-center mt-5 text-2xl'>
-          <img src={Logo} className='' alt='' />
+          <Image src={Logo} className='' alt='Logo TK Santo Lusia' />
           <span>supervice</span>
           <span>tk santa lusia</span>
         </div>
