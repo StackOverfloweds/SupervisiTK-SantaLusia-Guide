@@ -76,15 +76,15 @@ export default function Dashboard() {
           <div className='flex flex-col items-center'>
             <h2 className='text-xl font-light text-gray-800 mb-4'>VISI</h2>
             <p className='text-gray-600 text-center font-bold italic'>
-              "Menjadi Lembaga Pendidikan yang Unggul dan Berkualitas dengan
-              Semangat Santa Lusia"
+              &quot;Menjadi Lembaga Pendidikan yang Unggul dan Berkualitas dengan
+              Semangat Santa Lusia&quot;
             </p>
           </div>
 
           <div className='flex flex-col items-center'>
             <h2 className='text-xl font-light text-gray-800 mb-4'>Motto</h2>
             <p className='text-gray-600 text-center italic'>
-              "CERDAS, CERIA, UNGGUL DAN PEDULI SESAMA (CCUP)"
+              &quot;CERDAS, CERIA, UNGGUL DAN PEDULI SESAMA (CCUP)&quot;
             </p>
           </div>
 
