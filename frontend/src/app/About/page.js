@@ -36,7 +36,7 @@ import Autoplay from "embla-carousel-autoplay"
 import useCheckClientDimension from "../../lib/hooks";
 
 
-export function SimpleGallery({galleryID,children, className}) {
+function SimpleGallery({galleryID,children, className}) {
     useEffect(()=>{
         let lightbox = new PhotoSwipeLightbox({
             gallery: '#' + galleryID,
@@ -51,7 +51,7 @@ export function SimpleGallery({galleryID,children, className}) {
             lightbox.destroy();
             lightbox = null
         }
-    },[]);
+    },[galleryID]);
 
     return (
         <div id={galleryID} className={className}>
@@ -78,7 +78,7 @@ export default function About() {
         plugin.current.stop
         api.scrollTo(selectedImage, true)
         plugin.current.reset
-    },[selectedImage])
+    },[api,selectedImage])
 
     useEffect(()  => {
         if(!clientWidth)return;
@@ -103,7 +103,7 @@ export default function About() {
                                 <div className="font-poppins md:text-lg text-sm text-center md:my-auto my-5 order-2 md:order-1">
                                     <IoStar color="white" className="p-1 h-5 w-5 md:w-14 md:h-14 md:p-3 bg-pink-500 rounded-full mx-auto "/>
                                     <h1 className=" uppercase text-xl md:text-4xl my-2 text-pretty"><span className="font-poppinsBold">Kepala sekolah</span> TK Santa Lusia Sei Rotan</h1>
-                                    <p>"Pendidikan dini yang berkualitas adalah investasi terbaik untuk masa depan, karena fondasi yang kuat ditanamkan sejak dini akan membawa keberhasilan yang berkelanjutan."</p>
+                                    <p>&quot;Pendidikan dini yang berkualitas adalah investasi terbaik untuk masa depan, karena fondasi yang kuat ditanamkan sejak dini akan membawa keberhasilan yang berkelanjutan.&quot;</p>
                                     <p>~SR. FERDINANDA, KSFL ~</p>
                                 </div>
                                 <div className="relative md:h-[700px] h-[400px] overflow-hidden md:order-2 order-1 md:rounded-none rounded-xl">
@@ -211,7 +211,7 @@ export default function About() {
                                                                     setSelectedImage(index)
                                                                 }}
                                                                 >
-                                                                    <Image src={data.src} width={data.width} height={data.height} alt={data.src} className="aspect-video object-cover object-center w-full rounded-xl"></Image>
+                                                                    <Image src={data.src} width={data.width} height={data.height} alt={`${data.src}`} className="aspect-video object-cover object-center w-full rounded-xl"></Image>
                                                                 </a>
                                                         </CarouselItem>
                                                     ))}
