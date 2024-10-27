@@ -19,6 +19,22 @@ export default function Supervicepage() {
             Klik untuk Mengisi Survei
           </span>
         </LinkPreview>
+        <div className='pt-10'>
+          <LinkPreview
+            url=' https://docs.google.com/document/d/1lrISj-J6ERUadL6Nb-hEZ7HbDCJDtkXe/edit?usp=sharing&ouid=109896234961874325844&rtpof=true&sd=true'
+            className='my-custom-class'
+            width={200}
+            height={100}
+            quality={80}
+            layout='responsive'
+            isStatic={false}
+            target='_blank'
+            rel='noopener noreferrer'>
+            <span className='font-semibold text-red-500 text-base'>
+              Buku Panduan
+            </span>
+          </LinkPreview>
+        </div>
       </div>
       <div className='fixed bottom-0 right-0 w-[100rem] h-[5rem] bg-white drop-shadow-xl z-50'>
         <footer className='fixed bottom-0 text-gray-500 text-sm py-7 text-center w-full '>

@@ -4,6 +4,7 @@ export default function Credits(){
                 <div className="text-center text-white text-sm md:text-xl">
                     <p className="">@TK SANTA LUSIA SEI ROTAN 2024</p>
                     <p className="">@SUPPORTBY:ROHIBSIMBOLON</p>
+                    
                 </div>
             </section>
     )
