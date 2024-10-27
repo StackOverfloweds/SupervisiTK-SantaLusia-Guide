@@ -243,18 +243,24 @@ export default function Home() {
               <span className="text-md ">
                 <p className="font-poppins text-center py-2">Online</p>
                 <div className="flex justify-center">
-                  <Button className="bg-[#FE7EC9]" size="lg">Klik sini</Button>
+                  <form action="https://m.facebook.com/tksantalusia/" method="get" target="_blank">
+                    <Button type="submit" className="bg-[#FE7EC9]" size="lg">Klik sini</Button>
+                  </form>
                 </div>
               </span>
             </div>
             <div className="md:col-span-1 text-white">
               <h1 className="font-bebasNeue text-xl text-center col-span-2">Brosur</h1>
               <div className="flex justify-center">
-                <Button className="bg-gradient-to-tr from-[#FE7EC9] to-[#38c4c1]" size="lg">Download Brosur</Button>
+              <form action="https://m.facebook.com/tksantalusia/" method="get" target="_blank">
+                <Button type="submit" className="bg-gradient-to-tr from-[#FE7EC9] to-[#38c4c1]" size="lg">Download Brosur</Button>
+              </form>
               </div>
               <h1 className="font-bebasNeue text-xl text-center col-span-2 mt-5">Syarat dan ketentuan</h1>
               <div className="flex justify-center">
-                <Button className="bg-gradient-to-tr from-[#FE7EC9] to-[#38c4c1]" size="lg">Download S&K</Button>
+                <form action="https://m.facebook.com/tksantalusia/" method="get" target="_blank">
+                  <Button type="submit" className="bg-gradient-to-tr from-[#FE7EC9] to-[#38c4c1]" size="lg">Download S&K</Button>
+                </form>
               </div>
             </div>
           </div>
