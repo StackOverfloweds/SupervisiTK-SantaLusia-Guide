@@ -1,5 +1,7 @@
 import { useRouter } from "next/navigation";
 import { ScrollArea } from "../../components/ui/scroll-area";
+import { Toast } from "@/components/ui/toast";
+
 
 export default function Pengumunan() {
   const router = useRouter();
@@ -32,7 +34,9 @@ export default function Pengumunan() {
     submitButton.onclick = () => {
       const announcement = textAreaField.value;
       if (announcement) {
-        alert(`Pengumuman: ${announcement}`);
+        toast({
+
+        })
         popupContainer.remove();
       } else {
         alert("Silakan masukkan pengumuman.");

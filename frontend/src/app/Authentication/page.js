@@ -21,7 +21,7 @@ import {
 
 import AuthContext from "../../lib/Context/AuthProvider";
 import { useToast } from "../../hooks/use-toast";
-
+import Login from "./Login.js";
 
 export default function Authentication() {
     const [inputs, setInputs] = useState({

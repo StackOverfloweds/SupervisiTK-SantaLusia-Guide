@@ -1,6 +1,6 @@
-"use client";
-import { createContext, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+"use client"
+import { createContext, useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Cookies from "js-cookie";
 
 const AuthContext = createContext();
@@ -10,40 +10,17 @@ export function  AuthProvider({children}) {
     const [userData, setUserData] = useState(null);
     const [authMessage, setAuthMessage] = useState(null);
     const router = useRouter();
-    const [token, setToken] = useState(null);
+    const [tokens, setTokens] = useState(null);
 
     useEffect(() => {
-        const token = sessionStorage.getItem("token");
+        const token = Cookies.get("token");
         if(!token) {
-            router.push("/Authentication")
-            return;
-        }
-        ValidateToken(token).then((resolve) => {
-            if(!resolve.token_valid){
-                sessionStorage.removeItem("token")
-                router.refresh();
-                return;
-            }
-            setUserData(resolve);
+            router.push('Authentication')
+        } else {
+            setTokens(token);
             router.push("/admin-pages");
-        });
-    },[token])
-
-    const ValidateToken = async (token) => {
-        try{
-            const validate = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/users/validate-token/${token}`,{
-             method:"GET",
-             headers:{
-                "Content-Type" : "application/json"
-             }
-            })
-            const val = await validate.json();
-            return val;
-        }catch(e){
-            console.log("error pada saat validasi token : ",e);
         }
-
-    }
+    },[])
 
     const Register = async(credentials) => {
         if(!credentials){
@@ -55,7 +32,6 @@ export function  AuthProvider({children}) {
             return;
         }
         try{
-
             const Reg = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/register`,{
                 method:"POST",
                 headers:{
@@ -70,7 +46,6 @@ export function  AuthProvider({children}) {
                     "password":credentials.password,
                     "address":credentials.address
                 })
-
             })
             let reg = await Reg.json();
             return reg;
@@ -78,11 +53,11 @@ export function  AuthProvider({children}) {
             setAuthMessage(e);
             console.error(e);
         }
-    };
-
-
+    }
 
     const login = async (credentials) => {
+        console.log(credentials)
+        console.log(tokens);
         if(!credentials){
             setAuthMessage("Harap masukkan credential")
             return;
@@ -91,75 +66,47 @@ export function  AuthProvider({children}) {
             setAuthMessage("email atau password masih kosong")
             return;
         }
-        
-        try {
-            const Login = await fetch(
-                `${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login/`,
-                {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${tokens}`,
+
+        try{
+            const Login = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/login/`,{
+                headers:{
+                    "Content-Type":"application/json",
+                     "Authorization": `Bearer ${tokens}`
                 },
                 method:"POST",
                 body:JSON.stringify({
                     "name": credentials.firstName,
                     "password" : credentials.password
-                    })
-                });
+                })
+            })
             const dat = await Login.json()
-            if(Login.ok){
-                setAuthMessage("Login Berhasil")
-                setUserData(dat);
-                sessionStorage.setItem("token",dat.token);
-                setToken(dat.token);
-                setIsAuthenticated(true);
-                return dat;
-            }
-            return dat;
+            setAuthMessage("Login Berhasil")
+            setUserData(dat.data);
+            console.log(dat);
+            Cookies.set("token",dat.token);
+            return Login;
         }catch(e){
             setAuthMessage(e);
             console.log(e)
             return;
         }
-    };
+    }
 
-    const logout = async () => {
-        try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/api/Auth/logout`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${sessionStorage.getItem("token")}`
-                },
-            });
+    const logout = () => {
+        Cookies.remove("token")
+        setAuthMessage(null);
+        setIsAuthenticated(false);
+        setUserData(null);
+    }
+
     
-            if (!response.ok) {
-                throw new Error('Logout failed');
-            }
-            const data = await response.json();
-            // Remove the token and reset state
-            sessionStorage.removeItem("token");
-            setAuthMessage(null);
-            setIsAuthenticated(false);
-            setUserData(null);
-        } catch (error) {
-            console.error('Logout error:', error); 
-        }
-    };   
-  
-  return (
-    <AuthContext.Provider
-      value={{
-        isAuthenticated,
-        userData,
-        authMessage,
-        login,
-        logout,
-        Register,
-      }}>
-      {children}
-    </AuthContext.Provider>
-  );
+
+    return(
+        <AuthContext.Provider value={{ isAuthenticated, userData, authMessage, login, logout, Register }}>
+            {children}
+        </AuthContext.Provider>
+    )
+
 }
 
 export default AuthContext;
