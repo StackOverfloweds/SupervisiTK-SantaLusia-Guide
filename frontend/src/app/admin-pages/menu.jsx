@@ -114,11 +114,11 @@ export default function MenuAdmin() {
 
   return (
     <div className='h-screen w-screen flex'>
-      <div className='w-[20rem] bg-DF text-white font-bold'>
+      <div className='w-[20rem] bg-DF text-black font-bold'>
         <div className='uppercase flex flex-col justify-center items-center mt-5 text-2xl'>
           <Image src={Logo} className='' alt='Logo TK Santo Lusia' />
-          <span>supervice</span>
-          <span>tk santa lusia</span>
+          <span className="text-white">supervice</span>
+          <span className="text-white">tk santa lusia</span>
         </div>
         <ul className='flex flex-col mt-10 space-y-10 ml-[3rem] font-poppins font-bold'>
 
