@@ -120,7 +120,7 @@ export default function MenuAdmin() {
           <span className="text-white">supervice</span>
           <span className="text-white">tk santa lusia</span>
         </div>
-        <ul className='flex flex-col mt-10 space-y-10 ml-[3rem] font-poppins font-bold'>
+        <ul className='flex flex-col mt-10 space-y-10 ml-[3rem] font-poppins font-bold text-black'>
 
           {
           !userData? <h1 className="animate-pulse font-bold text-3xl">Loading</h1> 

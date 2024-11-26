@@ -21,7 +21,7 @@ export default function Supervicepage() {
         </LinkPreview>
         <div className='pt-10'>
           <LinkPreview
-            url=' https://docs.google.com/document/d/1lrISj-J6ERUadL6Nb-hEZ7HbDCJDtkXe/edit?usp=sharing&ouid=109896234961874325844&rtpof=true&sd=true'
+            url=' https://drive.google.com/drive/folders/1ylOHGVK67cAyyh_CfrwMmLcZ04Ddvhxd?usp=sharing'
             className='my-custom-class'
             width={200}
             height={100}
@@ -31,7 +31,7 @@ export default function Supervicepage() {
             target='_blank'
             rel='noopener noreferrer'>
             <span className='font-semibold text-red-500 text-base'>
-              Buku Panduan
+              Instrumen
             </span>
           </LinkPreview>
         </div>
