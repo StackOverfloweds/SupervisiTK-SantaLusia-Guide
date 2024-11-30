@@ -31,7 +31,7 @@ export default function Supervicepage() {
             target='_blank'
             rel='noopener noreferrer'>
             <span className='font-semibold text-red-500 text-base'>
-              Instrumen
+              Instrumen dan modul
             </span>
           </LinkPreview>
         </div>

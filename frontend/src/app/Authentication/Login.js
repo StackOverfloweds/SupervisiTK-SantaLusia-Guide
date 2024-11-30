@@ -2,26 +2,26 @@ import {Button} from "@/components/ui/button";
 import { ReloadIcon } from "@radix-ui/react-icons"
 
 const Login = ({inputs,setInputs, login, toast, setLoadStatus, loadingStatus}) => {
-    // const handleSubmit = async  (e) => {
-    //     e.preventDefault();
-    //     setLoadStatus(true);
-    //     const user = await login(inputs);
-    //     if(user?.error){
-    //         setLoadStatus(false);
-    //         toast({
-    //             variant:"destructive",
-    //             title:`${user.error}`,
-    //             description:"username / password salah"
-    //         })
-    //         return;
-    //     }
-    //     setLoadStatus(false);
-    //     toast({
-    //         variant:"success",
-    //         title:`Login Berhasil`,
-    //         description:`selamat datang ${user.user.name}`
-    //     })        
-    // }
+    const handleSubmit = async  (e) => {
+        e.preventDefault();
+        setLoadStatus(true);
+        const user = await login(inputs);
+        if(user?.error){
+            setLoadStatus(false);
+            toast({
+                variant:"destructive",
+                title:`${user.error}`,
+                description:"username / password salah"
+            })
+            return;
+        }
+        setLoadStatus(false);
+        toast({
+            variant:"success",
+            title:`Login Berhasil`,
+            description:`selamat datang ${user.user.name}`
+        })        
+    }
     return(
         <form className="" onSubmit={(e) => handleSubmit(e)} method="POST">
             <h1 className="font-poppinsBold text-center text-2xl md:text-3xl">Selamat Datang!!</h1>
