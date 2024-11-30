@@ -3,6 +3,9 @@ import { useState,useEffect, useRef } from "react";
 import NavbarUser from "../../components/ui/NavbarUser";
 import { IoStar } from "react-icons/io5";
 import GuruSantaLusia from "../../img/Gurusantalusia.png";
+import GuruSantaLusia1 from "../../img/About/guru1.jpeg";
+import GuruSantaLusia2 from "../../img/About/guru2.jpeg";
+import GuruSantaLusia3 from "../../img/About/guru3.jpeg";
 import gambarDepan from "../../img/About/gambardepan.png"
 import kantor from "../../img/About/kantor.jpg"
 import kegiatan from "../../img/About/kegiatannn.jpg"
@@ -124,19 +127,19 @@ export default function About() {
                                             <p className="font-poppins text-sm md:text-lg">Kepala Sekolah</p>
                                         </div>
                                         <div className="text-center ">
-                                            <Image src={GuruSantaLusia} width={208} height={208} sizes="(max-width: 768px) 96px, 208px" alt="foto bu floren (guru)" className="mx-auto my-5 w-24 md:w-52 h-24 md:h-52 object-cover object-top rounded-full border-[5px]  border-yellow-400 "></Image>
-                                            <h1 className="font-bebasNeue text-lg md:text-4xl uppercase">Floren Agustian, Lumban Gaol, S.Pd</h1>
-                                            <p className="font-poppins text-sm md:text-lg">Guru TK</p>
+                                            <Image src={GuruSantaLusia1} width={208} height={208} sizes="(max-width: 768px) 96px, 208px" alt="foto bu floren (guru)" className="mx-auto my-5 w-24 md:w-52 h-24 md:h-52 object-cover object-top rounded-full border-[5px]  border-yellow-400 "></Image>
+                                            <h1 className="font-bebasNeue text-lg md:text-4xl uppercase">Guru TK</h1>
+                                            {/* <p className="font-poppins text-sm md:text-lg">Guru TK</p> */}
                                         </div>
                                         <div className="text-center ">
-                                            <Image src={GuruSantaLusia} width={208} height={208} sizes="(max-width: 768px) 96px, 208px" alt="foto bu widia (guru)" className="mx-auto my-5 w-24 md:w-52 h-24 md:h-52 object-cover object-top rounded-full border-[5px]  border-yellow-400 "></Image>
-                                            <h1 className="font-bebasNeue text-lg md:text-4xl uppercase">Widia Naibaho, S.Pd</h1>
-                                            <p className="font-poppins text-sm md:text-lg">Guru TK</p>
+                                            <Image src={GuruSantaLusia2} width={208} height={208} sizes="(max-width: 768px) 96px, 208px" alt="foto bu widia (guru)" className="mx-auto my-5 w-24 md:w-52 h-24 md:h-52 object-cover object-top rounded-full border-[5px]  border-yellow-400 "></Image>
+                                            <h1 className="font-bebasNeue text-lg md:text-4xl uppercase">Guru TK</h1>
+                                            {/* <p className="font-poppins text-sm md:text-lg">Guru TK</p> */}
                                         </div>
                                         <div className="text-center ">
-                                            <Image src={GuruSantaLusia} width={208} height={208} sizes="(max-width: 768px) 96px, 208px" alt="foto bu Yuselina (guru)" className="mx-auto my-5 w-24 md:w-52 h-24 md:h-52 object-cover object-top rounded-full border-[5px]  border-yellow-400 "></Image>
-                                            <h1 className="font-bebasNeue text-lg md:text-4xl uppercase">Yuselina</h1>
-                                            <p className="font-poppins text-sm md:text-lg">Guru TK</p>
+                                            <Image src={GuruSantaLusia3} width={208} height={208} sizes="(max-width: 768px) 96px, 208px" alt="foto bu Yuselina (guru)" className="mx-auto my-5 w-24 md:w-52 h-24 md:h-52 object-cover object-top rounded-full border-[5px]  border-yellow-400 "></Image>
+                                            <h1 className="font-bebasNeue text-lg md:text-4xl uppercase">Guru TK</h1>
+                                            {/* <p className="font-poppins text-sm md:text-lg">Guru TK</p> */}
                                         </div>
                                     </div>
                                 </div>
